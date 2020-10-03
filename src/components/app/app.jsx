@@ -21,7 +21,7 @@ const App = (props) => {
         <Route exact path="/favorites">
           <Favorites />
         </Route>
-        <Route exact path="/property">
+        <Route exact path="/offer/:id">
           <Property />
         </Route>
       </Switch>

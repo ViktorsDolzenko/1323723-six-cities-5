@@ -8,27 +8,41 @@ import Property from "../property/property";
 
 const App = (props) => {
   const {offersCount, offers, reviews} = props;
-  const [firstOffer] = offers;
-  const [firstReview] = reviews;
+
+
+  const bookmarkedOffers = offers.filter((offer) => offer.bookmarks);
+
 
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/">
-          <MainPage offersCount={offersCount}
-            offers={offers}/>
+        <Route exact path="/"
+          render={({history}) => (
+            <MainPage offersCount={offersCount}
+              offers={offers}
+              onEmailLinkClick={() => history.push(`/favorites`)}
+            />
+          )}>
+
         </Route>
         <Route exact path="/login">
           <Login />
         </Route>
         <Route exact path="/favorites">
-          <Favorites />
+          <Favorites
+            bookmarkedOffers={bookmarkedOffers}
+          />
         </Route>
-        <Route exact path="/offer/:id">
-          <Property
-            offers={firstOffer}
-            reviews={firstReview}/>
-        </Route>
+        <Route exact path='/offer/:id'
+          render={({match, history}) => (
+            <Property
+              id={match.params.id}
+              offers={offers}
+              reviews={reviews}
+              onEmailLinkClick={() => history.push(`/favorites`)}
+            />
+          )}
+        />
       </Switch>
     </BrowserRouter>
 
@@ -52,7 +66,8 @@ App.propTypes = {
     reviewAvatar: PropTypes.string.isRequired,
     reviewText: PropTypes.string.isRequired,
     reviewStars: PropTypes.string.isRequired,
-    reviewUsername: PropTypes.string.isRequired
+    reviewUsername: PropTypes.string.isRequired,
+    reviewId: PropTypes.number.isRequired,
   })).isRequired
 };
 export default App;

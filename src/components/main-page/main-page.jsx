@@ -1,13 +1,14 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import OffersScreen from "../offers-screen/offers-screen";
+import {Link} from "react-router-dom";
 export default class MainPage extends PureComponent {
   constructor(props) {
     super(props);
   }
   render() {
 
-    const {offers, offersCount} = this.props;
+    const {offers, offersCount, onEmailLinkClick} = this.props;
 
     return (
       <div className="page page--gray page--main">
@@ -22,7 +23,7 @@ export default class MainPage extends PureComponent {
               <nav className="header__nav">
                 <ul className="header__nav-list">
                   <li className="header__nav-item user">
-                    <a className="header__nav-link header__nav-link--profile" href="#">
+                    <a className="header__nav-link header__nav-link--profile" href="#" onClick={onEmailLinkClick}>
                       <div className="header__avatar-wrapper user__avatar-wrapper">
                       </div>
                       <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
@@ -85,12 +86,18 @@ export default class MainPage extends PureComponent {
             </div>
           </div>
         </main>
+        <footer className="footer container">
+          <Link className="footer__logo-link" to={`/`}>
+            <img className="footer__logo" src="/img/logo.svg" alt="6 cities logo" width="64" height="33"></img>
+          </Link>
+        </footer>
       </div>
     );
   }
 }
 
 MainPage.propTypes = {
+  onEmailLinkClick: PropTypes.func.isRequired,
   offersCount: PropTypes.number.isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,

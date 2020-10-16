@@ -8,28 +8,15 @@ export default class OfferCards extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {
-      bookmark: false
-    };
-
-    this.bookmarkActive = this.bookmarkActive.bind(this);
   }
 
-  bookmarkActive() {
-    this.setState(({bookmark}) =>{
-      return {
-        bookmark: !bookmark
-      };
-    });
-  }
 
   render() {
 
     const {onOfferCardHover, offer} = this.props;
-    const {bookmark} = this.state;
     const offerUrl = `offer/` + offer.id;
     let bookmarkClass = `place-card__bookmark-button ` + `button`;
-    if (bookmark) {
+    if (offer.bookmarks) {
       bookmarkClass += ` place-card__bookmark-button--active`;
     }
 
@@ -57,7 +44,7 @@ export default class OfferCards extends PureComponent {
               <b className="place-card__price-value">&euro;{offer.price}</b>
               <span className="place-card__price-text">&#47;&nbsp;night</span>
             </div>
-            <button className={bookmarkClass} onClick={this.bookmarkActive} type="button">
+            <button className={bookmarkClass} type="button">
               <svg className="place-card__bookmark-icon" width="18" height="19">
                 <use xlinkHref="#icon-bookmark"></use>
               </svg>

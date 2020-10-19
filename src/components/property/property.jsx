@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import ReviewForm from "../review-form/review-form";
-import {OfferProps} from "../../property-types.js";
 import OffersScreen from "../offers-screen/offers-screen";
 const Property = (props) => {
   const {offers, offer, reviews, onEmailLinkClick} = props;
@@ -184,7 +183,7 @@ const Property = (props) => {
 Property.propTypes = {
   onEmailLinkClick: PropTypes.func.isRequired,
   offers: PropTypes.array.isRequired,
-  offer: PropTypes.object .isRequired,
+  offer: PropTypes.object.isRequired,
   reviews: PropTypes.arrayOf(PropTypes.shape({
     reviewId: PropTypes.number.isRequired,
     reviewAvatar: PropTypes.string.isRequired,

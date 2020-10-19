@@ -7,10 +7,7 @@ import Login from "../login/login";
 import Property from "../property/property";
 
 const App = (props) => {
-  const {offersCount, offers, reviews} = props;
-
-
-  const bookmarkedOffers = offers.filter((offer) => offer.bookmarks);
+  const {offers, reviews} = props;
 
 
   return (
@@ -18,7 +15,7 @@ const App = (props) => {
       <Switch>
         <Route exact path="/"
           render={({history}) => (
-            <MainPage offersCount={offersCount}
+            <MainPage
               offers={offers}
               onEmailLinkClick={() => history.push(`/favorites`)}
             />
@@ -30,18 +27,22 @@ const App = (props) => {
         </Route>
         <Route exact path="/favorites">
           <Favorites
-            bookmarkedOffers={bookmarkedOffers}
+            offers={offers}
           />
         </Route>
         <Route exact path='/offer/:id'
-          render={({match, history}) => (
-            <Property
-              id={match.params.id}
-              offers={offers}
-              reviews={reviews}
-              onEmailLinkClick={() => history.push(`/favorites`)}
-            />
-          )}
+          render={({match, history}) => {
+            const offer = offers.find((offerCurrent) => offerCurrent.id === Number(match.params.id));
+            return (
+              <Property
+                offer={offer}
+                offers={offers}
+                reviews={reviews}
+                onEmailLinkClick={() => history.push(`/favorites`)}
+              />
+            );
+          }
+          }
         />
       </Switch>
     </BrowserRouter>
@@ -50,7 +51,6 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  offersCount: PropTypes.number.isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     photo: PropTypes.array.isRequired,

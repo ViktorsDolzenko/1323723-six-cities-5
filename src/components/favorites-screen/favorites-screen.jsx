@@ -1,16 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
-import FavoritesCard from "../favorites-card/favorites-card";
+import OfferCards from "../offer-cards/offer-cards";
+import {OfferProps} from "../../property-types.js";
 const FavoritesScreen = (props) =>{
 
-  const {bookmarkedOffers} = props;
-
+  const {offers} = props;
+  const bookmarkedOffers = offers.filter((offer) => offer.bookmarks);
   return (
     <div className="favorites__places">
-      {bookmarkedOffers.map((bookmarkedOffer) =>
-        <FavoritesCard
-          key={bookmarkedOffer.id}
-          bookmarkedOffer={bookmarkedOffer}
+      {bookmarkedOffers.map((offer) =>
+        <OfferCards
+          key={offer.id}
+          offer={offer}
+          imgClass={`favorites`}
+          articleClass={`favorites__card`}
+          isFavoriteScreen={true}
         />
       )}
     </div>
@@ -18,17 +22,7 @@ const FavoritesScreen = (props) =>{
 };
 
 FavoritesScreen.propTypes = {
-  bookmarkedOffers: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    photo: PropTypes.array.isRequired,
-    premium: PropTypes.bool.isRequired,
-    price: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequred,
-    rating: PropTypes.number.isRequired,
-    stars: PropTypes.string.isRequired,
-    bookmarks: PropTypes.bool.isRequired
-  })).isRequired
+  offers: PropTypes.arrayOf(OfferProps).isRequired
 };
 
 export default FavoritesScreen;

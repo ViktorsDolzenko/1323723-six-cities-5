@@ -2,10 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import ReviewForm from "../review-form/review-form";
+import OffersScreen from "../offers-screen/offers-screen";
 const Property = (props) => {
-  const {offers, reviews, id, onEmailLinkClick} = props;
+  const {offers, offer, reviews, onEmailLinkClick} = props;
 
-  const offer = offers.find((offerCurrent) => offerCurrent.id === Number(id));
 
   const photoElements = offer.photo.map((image, index) => {
     return (
@@ -161,6 +161,15 @@ const Property = (props) => {
         </div>
         <section className="property__map map"></section>
       </section>
+      <div className="container">
+        <section className="near-places places">
+          <h2 className="near-places__title">Other places in the neighbourhood</h2>
+          <div className="near-places__list places__list">
+            <OffersScreen offers={offers} />
+          </div>
+        </section>
+
+      </div>
       <footer className="footer container">
         <Link className="footer__logo-link" to={`/`}>
           <img className="footer__logo" src="/img/logo.svg" alt="6 cities logo" width="64" height="33"></img>
@@ -173,23 +182,8 @@ const Property = (props) => {
 
 Property.propTypes = {
   onEmailLinkClick: PropTypes.func.isRequired,
-  id: PropTypes.string.isRequired,
-  offers: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    photo: PropTypes.array.isRequired,
-    premium: PropTypes.bool.isRequired,
-    price: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequred,
-    rating: PropTypes.number .isRequired,
-    stars: PropTypes.string.isRequired,
-    bookmarks: PropTypes.bool.isRequired,
-    features: PropTypes.array.isRequired,
-    adultsCount: PropTypes.number .isRequired,
-    bedrooms: PropTypes.number.isRequired,
-    hostName: PropTypes.string.isRequired,
-    hostAvatar: PropTypes.string.isRequired
-  })).isRequired,
+  offers: PropTypes.array.isRequired,
+  offer: PropTypes.object.isRequired,
   reviews: PropTypes.arrayOf(PropTypes.shape({
     reviewId: PropTypes.number.isRequired,
     reviewAvatar: PropTypes.string.isRequired,

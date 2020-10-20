@@ -1,20 +1,15 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
-
+import {OfferProps} from "../../property-types.js";
 
 export default class OfferCards extends PureComponent {
-
-  constructor(props) {
-    super(props);
-
-  }
 
 
   render() {
 
-    const {onOfferCardHover, offer} = this.props;
-    const offerUrl = `offer/` + offer.id;
+    const {onOfferCardHover, offer, onOfferCardLeave, articleClass, imgClass, isFavoriteScreen} = this.props;
+    const offerUrl = `/offer/` + offer.id;
     let bookmarkClass = `place-card__bookmark-button ` + `button`;
     if (offer.bookmarks) {
       bookmarkClass += ` place-card__bookmark-button--active`;
@@ -23,9 +18,16 @@ export default class OfferCards extends PureComponent {
     return (
       <article
         key={`${offer.id}-${offer.title}`}
-        className="cities__place-card place-card"
+        className={`${articleClass} place-card`}
         onMouseEnter={() =>{
-          onOfferCardHover(offer.id);
+          if (onOfferCardHover) {
+            onOfferCardHover(offer.id);
+          }
+        }}
+        onMouseLeave={() => {
+          if (onOfferCardLeave) {
+            onOfferCardLeave();
+          }
         }}>
         {offer.premium ?
           <div className="place-card__mark">
@@ -33,12 +35,12 @@ export default class OfferCards extends PureComponent {
           </div>
           : null
         }
-        <div className="cities__image-wrapper place-card__image-wrapper">
+        <div className={`${imgClass}__image-wrapper place-card__image-wrapper`}>
           <Link to={offerUrl}>
             <img className="place-card__image" src={offer.photo[0]} width="260" height="200" alt="Place image"></img>
           </Link >
         </div>
-        <div className="place-card__info">
+        <div className={`${isFavoriteScreen || ``} place-card__info`}>
           <div className="place-card__price-wrapper">
             <div className="place-card__price">
               <b className="place-card__price-value">&euro;{offer.price}</b>
@@ -67,18 +69,12 @@ export default class OfferCards extends PureComponent {
 }
 
 OfferCards.propTypes = {
-  onOfferCardHover: PropTypes.func.isRequired,
-  offer: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    photo: PropTypes.array.isRequired,
-    premium: PropTypes.bool.isRequired,
-    price: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequred,
-    rating: PropTypes.number.isRequired,
-    stars: PropTypes.string.isRequired,
-    bookmarks: PropTypes.bool.isRequired
-  }).isRequired
+  onOfferCardHover: PropTypes.func,
+  onOfferCardLeave: PropTypes.func,
+  articleClass: PropTypes.string,
+  isFavoriteScreen: PropTypes.bool,
+  imgClass: PropTypes.string,
+  offer: OfferProps
 };
 
 

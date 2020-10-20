@@ -2,13 +2,12 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import OffersScreen from "../offers-screen/offers-screen";
 import {Link} from "react-router-dom";
+import CitiesMap from "../map/map";
 export default class MainPage extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
+
   render() {
 
-    const {offers, offersCount, onEmailLinkClick} = this.props;
+    const {offers, onEmailLinkClick} = this.props;
 
     return (
       <div className="page page--gray page--main">
@@ -77,11 +76,13 @@ export default class MainPage extends PureComponent {
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{offersCount} places to stay in Amsterdam</b>
+                <b className="places__found">{offers.length} places to stay in Amsterdam</b>
                 <OffersScreen offers={offers}/>
               </section>
               <div className="cities__right-section">
-                <section className="cities__map map"></section>
+                <section className="cities__map map">
+                  <CitiesMap offers={offers} />
+                </section>
               </div>
             </div>
           </div>
@@ -98,15 +99,5 @@ export default class MainPage extends PureComponent {
 
 MainPage.propTypes = {
   onEmailLinkClick: PropTypes.func.isRequired,
-  offersCount: PropTypes.number.isRequired,
-  offers: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    photo: PropTypes.array.isRequired,
-    premium: PropTypes.bool.isRequired,
-    price: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequred,
-    stars: PropTypes.string.isRequired,
-    bookmarks: PropTypes.bool.isRequired
-  })).isRequired
+  offers: PropTypes.array.isRequired
 };

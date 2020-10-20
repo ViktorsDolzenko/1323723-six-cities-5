@@ -4,7 +4,7 @@ import FavoritesScreen from "../favorites-screen/favorites-screen";
 import {Link} from "react-router-dom";
 const Favorites = (props) =>{
 
-  const {bookmarkedOffers} = props;
+  const {offers} = props;
 
   return (
     <div className="page">
@@ -43,7 +43,7 @@ const Favorites = (props) =>{
                 </div>
               </div>
               <FavoritesScreen
-                bookmarkedOffers={bookmarkedOffers}/>
+                offers={offers}/>
             </li>
           </ul>
         </section>
@@ -58,7 +58,7 @@ const Favorites = (props) =>{
 };
 
 Favorites.propTypes = {
-  bookmarkedOffers: PropTypes.arrayOf(PropTypes.shape({
+  offers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     photo: PropTypes.array.isRequired,
     premium: PropTypes.bool.isRequired,

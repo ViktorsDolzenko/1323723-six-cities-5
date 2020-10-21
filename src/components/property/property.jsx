@@ -3,6 +3,9 @@ import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import ReviewForm from "../review-form/review-form";
 import OffersScreen from "../offers-screen/offers-screen";
+import ReviewList from "../review-list/review-list";
+import CitiesMap from "../map/map";
+import {OfferProps} from "../../property-types";
 const Property = (props) => {
   const {offers, offer, reviews, onEmailLinkClick} = props;
 
@@ -19,34 +22,6 @@ const Property = (props) => {
     return (
       <li className="property__inside-item" key={index}>
         {feature}
-      </li>
-    );
-  });
-
-
-  const reviewElements = reviews.map((review, index) =>{
-    return (
-      <li className="reviews__item" key={index}>
-        <div className="reviews__user user">
-          <div className="reviews__avatar-wrapper user__avatar-wrapper">
-            <img className="reviews__avatar user__avatar" src={review.reviewAvatar} width="54" height="54" alt="Reviews avatar"></img>
-          </div>
-          <span className="reviews__user-name">
-            {review.reviewUsername}
-          </span>
-        </div>
-        <div className="reviews__info">
-          <div className="reviews__rating rating">
-            <div className="reviews__stars rating__stars">
-              <span style={{width: review.reviewStars}}></span>
-              <span className="visually-hidden">Rating</span>
-            </div>
-          </div>
-          <p className="reviews__text">
-            {review.reviewText}
-          </p>
-          <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
-        </div>
       </li>
     );
   });
@@ -151,15 +126,16 @@ const Property = (props) => {
               </div>
             </div>
             <section className="property__reviews reviews">
-              <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount"></span></h2>
-              <ul className="reviews__list">
-                {reviewElements}
-              </ul>
+              <ReviewList
+                reviews={reviews}
+              />
               <ReviewForm />
             </section>
           </div>
         </div>
-        <section className="property__map map"></section>
+        <section className="property__map map" style={{padding: `0 15rem`}}>
+          <CitiesMap offers={offers}/>
+        </section>
       </section>
       <div className="container">
         <section className="near-places places">
@@ -183,14 +159,8 @@ const Property = (props) => {
 Property.propTypes = {
   onEmailLinkClick: PropTypes.func.isRequired,
   offers: PropTypes.array.isRequired,
-  offer: PropTypes.object.isRequired,
-  reviews: PropTypes.arrayOf(PropTypes.shape({
-    reviewId: PropTypes.number.isRequired,
-    reviewAvatar: PropTypes.string.isRequired,
-    reviewText: PropTypes.string.isRequired,
-    reviewStars: PropTypes.string.isRequired,
-    reviewUsername: PropTypes.string.isRequired
-  })).isRequired
+  offer: PropTypes.shape(OfferProps).isRequired,
+  reviews: PropTypes.array.isRequired
 };
 
 export default Property;

@@ -1,6 +1,7 @@
 export default [
   {
     id: 100,
+    city: `Amsterdam`,
     photo: [`/img/apartment-01.jpg`,
       `/img/apartment-01.jpg`,
       `/img/apartment-01.jpg`,
@@ -34,6 +35,7 @@ export default [
   },
   {
     id: 101,
+    city: `Amsterdam`,
     photo: [`/img/apartment-02.jpg`,
       `/img/apartment-02.jpg`,
       `/img/apartment-02.jpg`,
@@ -60,6 +62,7 @@ export default [
   },
   {
     id: 102,
+    city: `Brussels`,
     photo: [`/img/apartment-03.jpg`,
       `/img/apartment-03.jpg`,
       `/img/apartment-03.jpg`,
@@ -73,7 +76,7 @@ export default [
     stars: `100%`,
     rating: 5,
     bookmarks: false,
-    coordinates: [52.3909553943508, 4.929309666406198],
+    coordinates: [50.85045, 4.34878],
     features: [`Wi-Fi`,
       `Heating`,
       `Kitchen`,

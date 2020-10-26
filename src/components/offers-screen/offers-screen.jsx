@@ -22,25 +22,28 @@ export default class OffersScreen extends PureComponent {
     this.setState({offerActive: offerId});
   }
   render() {
-    const {offers} = this.props;
+    const {offers, city} = this.props;
     return (
-      <div className="cities__places-list places__list tabs__content">
-        {offers.map((offer) =>
-          <OfferCards
-            key={offer.id}
-            offer={offer}
-            articleClass={`cities__place-card`}
-            imgClass={`cities`}
-            onOfferCardHover={this._handleOfferCardHover}
-            onOfferCardLeave={this._handleOfferCardLeave}/>
-
-        )}
-      </div>
+      <section className="cities__places places">
+        <h2 className="visually-hidden">Places</h2>
+        <b className="places__found">{offers.length} places to stay in {city}</b>
+        <div className="cities__places-list places__list tabs__content">
+          {offers.map((offer) =>
+            <OfferCards
+              key={offer.id}
+              offer={offer}
+              articleClass={`cities__place-card`}
+              imgClass={`cities`}
+              onOfferCardHover={this._handleOfferCardHover}
+              onOfferCardLeave={this._handleOfferCardLeave}/>
+          )}
+        </div>
+      </section>
     );
   }
 
 }
 OffersScreen.propTypes = {
-  offers: PropTypes.arrayOf(OfferProps).isRequired
+  offers: PropTypes.arrayOf(OfferProps).isRequired,
 };
 

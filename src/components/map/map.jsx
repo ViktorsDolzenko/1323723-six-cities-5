@@ -3,8 +3,9 @@ import "leaflet/dist/leaflet.css";
 import React, {PureComponent} from "react";
 import {OfferProps} from "../../property-types.js";
 import PropTypes from "prop-types";
+import {CITIES_CORDINATES} from "../../const";
 
-export default class CitiesMap extends PureComponent {
+export default class Map extends PureComponent {
 
   constructor(props) {
     super(props);
@@ -12,10 +13,10 @@ export default class CitiesMap extends PureComponent {
   }
 
   componentDidMount() {
-    const {offers} = this.props;
+    const {offers, currentCity} = this.props;
     const offersCords = offers.map((offer)=> offer.coordinates);
 
-    const city = [52.38333, 4.9];
+    const city = CITIES_CORDINATES[currentCity];
     const icon = leaflet.icon({
       iconUrl: `../img/pin.svg`,
       iconSize: [30, 30]
@@ -56,7 +57,8 @@ export default class CitiesMap extends PureComponent {
 }
 
 
-CitiesMap.propTypes = {
+Map.propTypes = {
   offers: PropTypes.arrayOf(OfferProps).isRequired,
-  className: PropTypes.string
+  className: PropTypes.string,
+  currentCity: PropTypes.string.isRequired,
 };

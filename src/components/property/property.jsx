@@ -4,10 +4,11 @@ import {Link} from "react-router-dom";
 import ReviewForm from "../review-form/review-form";
 import OffersScreen from "../offers-screen/offers-screen";
 import ReviewList from "../review-list/review-list";
-import CitiesMap from "../map/map";
+import Map from "../map/map";
 import {OfferProps} from "../../property-types";
+import {connect} from "react-redux";
 const Property = (props) => {
-  const {offers, offer, reviews, onEmailLinkClick} = props;
+  const {offers, offer, reviews, onEmailLinkClick, city} = props;
 
 
   const photoElements = offer.photo.map((image, index) => {
@@ -134,7 +135,7 @@ const Property = (props) => {
           </div>
         </div>
         <section className="property__map map" style={{padding: `0 15rem`}}>
-          <CitiesMap offers={offers}/>
+          <Map offers={offers} currentCity={city}/>
         </section>
       </section>
       <div className="container">
@@ -163,4 +164,9 @@ Property.propTypes = {
   reviews: PropTypes.array.isRequired
 };
 
-export default Property;
+const mapStateToProps = (state) => ({
+  city: state.city,
+  filtredOffers: state.filtredOffers
+});
+
+export default connect(mapStateToProps)(Property);

@@ -7,6 +7,7 @@ import ReviewList from "../review-list/review-list";
 import Map from "../map/map";
 import {OfferProps} from "../../property-types";
 import {connect} from "react-redux";
+import OfferCards from "../offer-cards/offer-cards";
 const Property = (props) => {
   const {offers, offer, reviews, onEmailLinkClick, city} = props;
 
@@ -142,8 +143,9 @@ const Property = (props) => {
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <div className="near-places__list places__list">
-            <OffersScreen offers={offers} />
-          </div>
+            {offers.map((offerInDetails) =>
+              <OfferCards offer={offerInDetails} key={offerInDetails.id} />
+            )}</div>
         </section>
 
       </div>

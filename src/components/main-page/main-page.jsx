@@ -6,18 +6,18 @@ import CityList from '../city-list/city-list';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../store/action';
 import {OfferProps} from '../../property-types';
-import Map from "../map/map";
 
 const MainPage = (props) => {
-  const {offers, onEmailLinkClick, city, getOffer, filtredOffers} = props;
+  const {offers, onEmailLinkClick, city, getOffer, filtredOffers, currentFilter} = props;
 
   const handleCityClick = (evt) => {
     evt.preventDefault();
     const selectedCity = evt.target.textContent;
     if (selectedCity !== city) {
-      getOffer(selectedCity, offers);
+      getOffer(selectedCity, offers, currentFilter);
     }
   };
+
 
   return (
     <div className="page page--gray page--main">
@@ -58,11 +58,6 @@ const MainPage = (props) => {
           <div className="cities__places-container container">
             <h1 className="visually-hidden">Cities</h1>
             <OffersScreen city={city} offers={filtredOffers} />
-            <div className="cities__right-section">
-              <section className="cities__map map">
-                <Map currentCity={city} offers={offers} />
-              </section>
-            </div>
           </div>
         </div>
       </main>
@@ -80,17 +75,22 @@ MainPage.propTypes = {
   offers: PropTypes.array.isRequired,
   city: PropTypes.string.isRequired,
   getOffer: PropTypes.func.isRequired,
-  filtredOffers: PropTypes.arrayOf(OfferProps)
+  filtredOffers: PropTypes.arrayOf(OfferProps),
+  currentFilter: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   city: state.city,
-  filtredOffers: state.filtredOffers
+  filtredOffers: state.filtredOffers,
+  currentFilter: state.currentFilter
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getOffer(city, offers) {
     dispatch(ActionCreator.getOffer(city, offers));
+  },
+  sortOffers(currentFilter, filtredOffers) {
+    dispatch(ActionCreator.sortOffers(currentFilter, filtredOffers));
   }
 });
 

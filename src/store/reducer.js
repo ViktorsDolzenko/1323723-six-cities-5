@@ -8,19 +8,19 @@ const initialState = {
   currentFilter: FilterTypes.POPULAR
 };
 
-initialState.filtredOffers = getOfferByCity(initialState.offers, initialState.city, initialState.currentFilter);
+initialState.filteredOffers = getOfferByCity(initialState.offers, initialState.city, initialState.currentFilter);
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.GET_OFFER:
       return extend(state, {
         city: action.payload.city,
-        filtredOffers: action.payload.filtredOffers
+        filteredOffers: action.payload.filteredOffers
       });
     case ActionType.SORT_OFFER:
       return extend(state, {
         currentFilter: action.payload.currentFilter,
-        filtredOffers: action.payload.filtredOffers
+        filteredOffers: action.payload.filteredOffers
       });
   }
   return state;

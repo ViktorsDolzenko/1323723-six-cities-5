@@ -1,22 +1,19 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import OfferCards from "../offer-cards/offer-cards";
+import {Map} from "../map/map";
+import {FilterOffers} from "../filter-offers/filter-offers";
+import {OfferCards} from "../offer-cards/offer-cards";
 import {OfferProps} from "../../property-types.js";
-import FilterOffers from "../filter-offers/filter-offers";
-import Map from "../map/map";
 
-export default class OffersScreen extends PureComponent {
+export class OffersScreen extends React.PureComponent {
   constructor(props) {
     super(props);
-
     this.state = {
       offerActive: null
     };
-
     this._handleOfferCardHover = this._handleOfferCardHover.bind(this);
     this._handleOfferCardLeave = this._handleOfferCardLeave.bind(this);
   }
-
 
   _handleOfferCardLeave() {
     this.setState({offerActive: null});
@@ -54,10 +51,8 @@ export default class OffersScreen extends PureComponent {
       </React.Fragment>
     );
   }
-
 }
 OffersScreen.propTypes = {
   offers: PropTypes.arrayOf(OfferProps).isRequired,
   city: PropTypes.string.isRequired,
 };
-

@@ -1,14 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import MainPage from "../main-page/main-page";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
-import Favorites from "../favorites/favorites";
-import Login from "../login/login";
-import Property from "../property/property";
+import MainPage from "../main-page/main-page";
+import {Favorites} from "../favorites/favorites";
+import {Login} from "../login/login";
+import {Property} from "../property/property";
 
-const App = (props) => {
+export const App = (props) => {
   const {offers, reviews} = props;
-
 
   return (
     <BrowserRouter>
@@ -20,10 +19,9 @@ const App = (props) => {
               onEmailLinkClick={() => history.push(`/favorites`)}
             />
           )}>
-
         </Route>
         <Route exact path="/login">
-          <Login />
+          <Login/>
         </Route>
         <Route exact path="/favorites">
           <Favorites
@@ -46,7 +44,6 @@ const App = (props) => {
         />
       </Switch>
     </BrowserRouter>
-
   );
 };
 
@@ -57,10 +54,10 @@ App.propTypes = {
     premium: PropTypes.bool.isRequired,
     price: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequred,
+    type: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
     stars: PropTypes.string.isRequired,
-    bookmarks: PropTypes.bool.isRequired
+    bookmarks: PropTypes.bool.isRequired,
   })).isRequired,
   reviews: PropTypes.arrayOf(PropTypes.shape({
     reviewAvatar: PropTypes.string.isRequired,
@@ -68,6 +65,5 @@ App.propTypes = {
     reviewStars: PropTypes.string.isRequired,
     reviewUsername: PropTypes.string.isRequired,
     reviewId: PropTypes.number.isRequired,
-  })).isRequired
+  })).isRequired,
 };
-export default App;

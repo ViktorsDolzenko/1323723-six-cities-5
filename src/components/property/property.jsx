@@ -1,16 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
-import ReviewForm from "../review-form/review-form";
-import OffersScreen from "../offers-screen/offers-screen";
-import ReviewList from "../review-list/review-list";
-import Map from "../map/map";
+import {ReviewForm} from "../review-form/review-form";
+import {ReviewList} from "../review-list/review-list";
+import {Map} from "../map/map";
 import {OfferProps} from "../../property-types";
 import {connect} from "react-redux";
-import OfferCards from "../offer-cards/offer-cards";
-const Property = (props) => {
+import {OfferCards} from "../offer-cards/offer-cards";
+export const Property = (props) => {
   const {offers, offer, reviews, onEmailLinkClick, city} = props;
-
 
   const photoElements = offer.photo.map((image, index) => {
     return (
@@ -36,7 +34,7 @@ const Property = (props) => {
           <div className="header__wrapper">
             <div className="header__left">
               <Link className="header__logo-link" to={`/`}>
-                <img className="header__logo" src="/img/logo.svg" alt="6 cities logo" width="81" height="41"></img>
+                <img className="header__logo" src="/img/logo.svg" alt="6 cities logo" width="81" height="41"/>
               </Link>
             </div>
             <nav className="header__nav">
@@ -75,14 +73,14 @@ const Property = (props) => {
               </h1>
               <button className="property__bookmark-button button" type="button">
                 <svg className="property__bookmark-icon" width="31" height="33">
-                  <use xlinkHref="#icon-bookmark"></use>
+                  <use xlinkHref="#icon-bookmark"/>
                 </svg>
                 <span className="visually-hidden">To bookmarks</span>
               </button>
             </div>
             <div className="property__rating rating">
               <div className="property__stars rating__stars">
-                <span style={{width: offer.stars}}></span>
+                <span style={{width: offer.stars}}/>
                 <span className="visually-hidden">Rating</span>
               </div>
               <span className="property__rating-value rating__value">{offer.rating}</span>
@@ -112,7 +110,7 @@ const Property = (props) => {
               <h2 className="property__host-title">Meet the host</h2>
               <div className="property__host-user user">
                 <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                  <img className="property__avatar user__avatar" src={offer.hostAvatar} width="74" height="74" alt="Host avatar"></img>
+                  <img className="property__avatar user__avatar" src={offer.hostAvatar} width="74" height="74" alt="Host avatar"/>
                 </div>
                 <span className="property__user-name">
                   {offer.hostName}
@@ -136,7 +134,7 @@ const Property = (props) => {
           </div>
         </div>
         <section className="property__map map" style={{padding: `0 15rem`}}>
-          <Map offers={offers} currentCity={city}/>
+          {/* <Map offers={offers} currentCity={city}/>*/}
         </section>
       </section>
       <div className="container">
@@ -147,28 +145,27 @@ const Property = (props) => {
               <OfferCards offer={offerInDetails} key={offerInDetails.id} />
             )}</div>
         </section>
-
       </div>
       <footer className="footer container">
         <Link className="footer__logo-link" to={`/`}>
-          <img className="footer__logo" src="/img/logo.svg" alt="6 cities logo" width="64" height="33"></img>
+          <img className="footer__logo" src="/img/logo.svg" alt="6 cities logo" width="64" height="33"/>
         </Link>
       </footer>
     </div>
   );
 };
 
-
 Property.propTypes = {
   onEmailLinkClick: PropTypes.func.isRequired,
   offers: PropTypes.array.isRequired,
   offer: PropTypes.shape(OfferProps).isRequired,
-  reviews: PropTypes.array.isRequired
+  reviews: PropTypes.array.isRequired,
+  city: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({
   city: state.city,
-  filtredOffers: state.filtredOffers
+  filteredOffers: state.filteredOffers
 });
 
-export default connect(mapStateToProps)(Property);
+connect(mapStateToProps)(Property);

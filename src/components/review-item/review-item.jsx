@@ -1,7 +1,7 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
-export default class ReviewItem extends PureComponent {
+export class ReviewItem extends React.PureComponent {
   constructor(props) {
     super(props);
   }
@@ -13,7 +13,7 @@ export default class ReviewItem extends PureComponent {
       <li className="reviews__item" key={review.reviewId}>
         <div className="reviews__user user">
           <div className="reviews__avatar-wrapper user__avatar-wrapper">
-            <img className="reviews__avatar user__avatar" src={review.reviewAvatar} width="54" height="54" alt="Reviews avatar"></img>
+            <img className="reviews__avatar user__avatar" src={review.reviewAvatar} width="54" height="54" alt="Reviews avatar"/>
           </div>
           <span className="reviews__user-name">
             {review.reviewUsername}
@@ -22,7 +22,7 @@ export default class ReviewItem extends PureComponent {
         <div className="reviews__info">
           <div className="reviews__rating rating">
             <div className="reviews__stars rating__stars">
-              <span style={{width: review.reviewStars}}></span>
+              <span style={{width: review.reviewStars}}/>
               <span className="visually-hidden">Rating</span>
             </div>
           </div>

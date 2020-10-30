@@ -11,14 +11,14 @@ export const ActionCreator = {
     type: ActionType.GET_OFFER,
     payload: {
       city,
-      filtredOffers: getOfferByCity(offers, city)
+      filteredOffers: getOfferByCity(offers, city)
     }
   }),
-  sortOffers: (currentFilter, filtredOffers) => ({
+  sortOffers: (currentFilter, filteredOffers) => ({
     type: ActionType.SORT_OFFER,
     payload: {
       currentFilter,
-      filtredOffers
+      filteredOffers
     }
   })
 };

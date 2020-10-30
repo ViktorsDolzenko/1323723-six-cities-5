@@ -16,7 +16,7 @@ const citiesListTemplate = (city, currentCity, handleCityClick) => {
   );
 };
 
-const CityList = (props) => {
+export const CityList = (props) => {
 
   const {currentCity, handleCityClick} = props;
 
@@ -34,4 +34,3 @@ CityList.propTypes = {
   currentCity: PropTypes.string.isRequired,
   handleCityClick: PropTypes.func.isRequired,
 };
-export default CityList;

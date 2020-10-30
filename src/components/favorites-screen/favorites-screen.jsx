@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import OfferCards from "../offer-cards/offer-cards";
+import {OfferCards} from "../offer-cards/offer-cards";
 import {OfferProps} from "../../property-types.js";
-const FavoritesScreen = (props) =>{
 
+export const FavoritesScreen = (props) =>{
   const {offers} = props;
   const bookmarkedOffers = offers.filter((offer) => offer.bookmarks);
   return (
@@ -25,4 +25,3 @@ FavoritesScreen.propTypes = {
   offers: PropTypes.arrayOf(OfferProps).isRequired
 };
 
-export default FavoritesScreen;

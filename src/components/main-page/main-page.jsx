@@ -1,15 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import OffersScreen from '../offers-screen/offers-screen';
-import {Link} from 'react-router-dom';
-import CityList from '../city-list/city-list';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 import {ActionCreator} from '../../store/action';
 import {OfferProps} from '../../property-types';
+import {OffersScreen} from '../offers-screen/offers-screen';
+import {CityList} from '../city-list/city-list';
 
 const MainPage = (props) => {
-  const {offers, onEmailLinkClick, city, getOffer, filtredOffers, currentFilter} = props;
-
+  const {offers, onEmailLinkClick, city, getOffer, filteredOffers, currentFilter} = props;
   const handleCityClick = (evt) => {
     evt.preventDefault();
     const selectedCity = evt.target.textContent;
@@ -17,7 +16,6 @@ const MainPage = (props) => {
       getOffer(selectedCity, offers, currentFilter);
     }
   };
-
 
   return (
     <div className="page page--gray page--main">
@@ -41,8 +39,7 @@ const MainPage = (props) => {
                   <a
                     className="header__nav-link header__nav-link--profile"
                     href="#"
-                    onClick={onEmailLinkClick}
-                  >
+                    onClick={onEmailLinkClick}>
                     <div className="header__avatar-wrapper user__avatar-wrapper" />
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
                   </a>
@@ -57,7 +54,7 @@ const MainPage = (props) => {
         <div className="cities">
           <div className="cities__places-container container">
             <h1 className="visually-hidden">Cities</h1>
-            <OffersScreen city={city} offers={filtredOffers} />
+            <OffersScreen city={city} offers={filteredOffers} />
           </div>
         </div>
       </main>
@@ -75,13 +72,13 @@ MainPage.propTypes = {
   offers: PropTypes.array.isRequired,
   city: PropTypes.string.isRequired,
   getOffer: PropTypes.func.isRequired,
-  filtredOffers: PropTypes.arrayOf(OfferProps),
+  filteredOffers: PropTypes.arrayOf(OfferProps),
   currentFilter: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   city: state.city,
-  filtredOffers: state.filtredOffers,
+  filteredOffers: state.filteredOffers,
   currentFilter: state.currentFilter
 });
 
@@ -89,8 +86,8 @@ const mapDispatchToProps = (dispatch) => ({
   getOffer(city, offers) {
     dispatch(ActionCreator.getOffer(city, offers));
   },
-  sortOffers(currentFilter, filtredOffers) {
-    dispatch(ActionCreator.sortOffers(currentFilter, filtredOffers));
+  sortOffers(currentFilter, filteredOffers) {
+    dispatch(ActionCreator.sortOffers(currentFilter, filteredOffers));
   }
 });
 

@@ -4,5 +4,3 @@ export const extend = (a, b) => {
 
 export const getOfferByCity = (offers, city) => offers.filter((offer) =>
   offer.city === city);
-
-export const lowToHigh = (offers) => offers.price.sort();

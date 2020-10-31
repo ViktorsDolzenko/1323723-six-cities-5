@@ -1,14 +1,15 @@
 import offers from "../mocks/offer";
-import {CITIES, FilterTypes} from "../const.js";
+import {Cities, FilterTypes} from "../const.js";
 import {extend, getOfferByCity} from "../util";
 import {ActionType} from "./action";
+import {sortByType} from "../const";
 const initialState = {
-  city: CITIES.AMSTERDAM,
+  city: Cities.AMSTERDAM,
   offers,
-  currentFilter: FilterTypes.POPULAR
+  filter: FilterTypes.POPULAR
 };
 
-initialState.filteredOffers = getOfferByCity(initialState.offers, initialState.city, initialState.currentFilter);
+initialState.filteredOffers = getOfferByCity(initialState.offers, initialState.city, initialState.filter);
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -19,8 +20,8 @@ const reducer = (state = initialState, action) => {
       });
     case ActionType.SORT_OFFER:
       return extend(state, {
-        currentFilter: action.payload.currentFilter,
-        filteredOffers: action.payload.filteredOffers
+        filter: action.payload.filter,
+        filteredOffers: sortByType(action.payload.filteredOffers, action.payload.filter)
       });
   }
   return state;

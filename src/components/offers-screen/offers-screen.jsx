@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Map} from "../map/map";
-import {FilterOffers} from "../filter-offers/filter-offers";
+import {PlacesSorting} from "../places-sorting/places-sorting";
 import {OfferCards} from "../offer-cards/offer-cards";
 import {OfferProps} from "../../property-types.js";
 
@@ -9,7 +9,7 @@ export class OffersScreen extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      offerActive: null
+      offer: null
     };
     this._handleOfferCardHover = this._handleOfferCardHover.bind(this);
     this._handleOfferCardLeave = this._handleOfferCardLeave.bind(this);
@@ -30,7 +30,7 @@ export class OffersScreen extends React.PureComponent {
         <section className="cities__places places">
           <h2 className="visually-hidden">Places</h2>
           <b className="places__found">{offers.length} places to stay in {city}</b>
-          <FilterOffers offers={offers} />
+          <PlacesSorting offers={offers} />
           <div className="cities__places-list places__list tabs__content">
             {offers.map((offer) =>
               <OfferCards
@@ -45,7 +45,7 @@ export class OffersScreen extends React.PureComponent {
         </section>
         <div className="cities__right-section">
           <section className="cities__map map">
-            <Map currentCity={city} offers={offers} offerActive={offerActive} />
+            <Map city={city} offers={offers} offer={offerActive} />
           </section>
         </div>
       </React.Fragment>

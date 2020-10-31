@@ -7,13 +7,13 @@ import {OfferProps} from '../../property-types';
 import {OffersScreen} from '../offers-screen/offers-screen';
 import {CityList} from '../city-list/city-list';
 
-const MainPage = (props) => {
-  const {offers, onEmailLinkClick, city, getOffer, filteredOffers, currentFilter} = props;
+const MainPageComponent = (props) => {
+  const {offers, onEmailLinkClick, city, getOffer, filteredOffers, filter} = props;
   const handleCityClick = (evt) => {
     evt.preventDefault();
     const selectedCity = evt.target.textContent;
     if (selectedCity !== city) {
-      getOffer(selectedCity, offers, currentFilter);
+      getOffer(selectedCity, offers, filter);
     }
   };
 
@@ -67,19 +67,19 @@ const MainPage = (props) => {
   );
 };
 
-MainPage.propTypes = {
+MainPageComponent.propTypes = {
   onEmailLinkClick: PropTypes.func.isRequired,
   offers: PropTypes.array.isRequired,
   city: PropTypes.string.isRequired,
   getOffer: PropTypes.func.isRequired,
   filteredOffers: PropTypes.arrayOf(OfferProps),
-  currentFilter: PropTypes.string.isRequired,
+  filter: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   city: state.city,
   filteredOffers: state.filteredOffers,
-  currentFilter: state.currentFilter
+  filter: state.filter
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -91,4 +91,4 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
+export const MainPage = connect(mapStateToProps, mapDispatchToProps)(MainPageComponent);

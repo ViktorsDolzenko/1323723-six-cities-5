@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
-import MainPage from "../main-page/main-page";
+import {MainPage} from "../main-page/main-page";
 import {Favorites} from "../favorites/favorites";
 import {Login} from "../login/login";
 import {Property} from "../property/property";
+import {ReviewProps} from "../../property-types";
 
 export const App = (props) => {
   const {offers, reviews} = props;
@@ -59,11 +60,5 @@ App.propTypes = {
     stars: PropTypes.string.isRequired,
     bookmarks: PropTypes.bool.isRequired,
   })).isRequired,
-  reviews: PropTypes.arrayOf(PropTypes.shape({
-    reviewAvatar: PropTypes.string.isRequired,
-    reviewText: PropTypes.string.isRequired,
-    reviewStars: PropTypes.string.isRequired,
-    reviewUsername: PropTypes.string.isRequired,
-    reviewId: PropTypes.number.isRequired,
-  })).isRequired,
+  reviews: PropTypes.arrayOf(PropTypes.shape(ReviewProps)).isRequired,
 };

@@ -6,7 +6,7 @@ export const OfferProps = PropTypes.shape({
   premium: PropTypes.bool.isRequired,
   price: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequred,
+  type: PropTypes.string.isRequired,
   rating: PropTypes.number.isRequired,
   stars: PropTypes.string.isRequired,
   bookmarks: PropTypes.bool.isRequired,
@@ -15,5 +15,14 @@ export const OfferProps = PropTypes.shape({
   bedrooms: PropTypes.number.isRequired,
   hostName: PropTypes.string.isRequired,
   hostAvatar: PropTypes.string.isRequired
+}).isRequired;
+
+
+export const ReviewProps = PropTypes.shape({
+  avatar: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  stars: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
 }).isRequired;
 

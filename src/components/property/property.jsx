@@ -7,8 +7,9 @@ import {Map} from "../map/map";
 import {OfferProps} from "../../property-types";
 import {connect} from "react-redux";
 import {OfferCards} from "../offer-cards/offer-cards";
-export const Property = (props) => {
-  const {offers, offer, reviews, onEmailLinkClick, city} = props;
+
+const PropertyComponent = (props) => {
+  const {offer, reviews, onEmailLinkClick, city, filteredOffers} = props;
 
   const photoElements = offer.photo.map((image, index) => {
     return (
@@ -25,7 +26,6 @@ export const Property = (props) => {
       </li>
     );
   });
-
 
   return (
     <div className="page">
@@ -134,14 +134,14 @@ export const Property = (props) => {
           </div>
         </div>
         <section className="property__map map" style={{padding: `0 15rem`}}>
-          {/* <Map offers={offers} currentCity={city}/>*/}
+          {<Map offers={filteredOffers} city={city}/>}
         </section>
       </section>
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <div className="near-places__list places__list">
-            {offers.map((offerInDetails) =>
+            {filteredOffers.map((offerInDetails) =>
               <OfferCards offer={offerInDetails} key={offerInDetails.id} />
             )}</div>
         </section>
@@ -155,17 +155,17 @@ export const Property = (props) => {
   );
 };
 
-Property.propTypes = {
+PropertyComponent.propTypes = {
   onEmailLinkClick: PropTypes.func.isRequired,
-  offers: PropTypes.array.isRequired,
-  offer: PropTypes.shape(OfferProps).isRequired,
+  offer: PropTypes.shape(OfferProps.isRequired).isRequired,
   reviews: PropTypes.array.isRequired,
-  city: PropTypes.string.isRequired
+  city: PropTypes.string.isRequired,
+  filteredOffers: PropTypes.arrayOf(PropTypes.shape(OfferProps.isRequired)).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   city: state.city,
-  filteredOffers: state.filteredOffers
+  filteredOffers: state.filteredOffers,
 });
 
-connect(mapStateToProps)(Property);
+export const Property = connect(mapStateToProps)(PropertyComponent);

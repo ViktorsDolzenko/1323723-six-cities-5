@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import leaflet from "leaflet";
 import "leaflet/dist/leaflet.css";
 import {OfferProps} from "../../property-types.js";
-import {CITIES_CORDINATES} from "../../const";
+import {CITIES_COORDINATES} from "../../const";
 
 const inactiveIcon = leaflet.icon({
   iconUrl: `../img/pin.svg`,
@@ -24,7 +24,7 @@ export class Map extends React.PureComponent {
   }
 
   renderMap() {
-    const city = CITIES_CORDINATES[this.props.currentCity];
+    const city = CITIES_COORDINATES[this.props.city];
     this.map = leaflet.map(this.mapRef.current, {
       center: city,
       zoom: ZOOM,
@@ -42,12 +42,12 @@ export class Map extends React.PureComponent {
   }
 
   renderMarkers() {
-    const {offers, offerActive} = this.props;
-    const getIcon = (id) => offerActive === id ? activeIcon : inactiveIcon;
-    this.layerGroup = leaflet.layerGroup(offers.map((offer)=>{
-      const icon = getIcon(offer.id);
+    const {offers, offer} = this.props;
+    const getIcon = (id) => offer === id ? activeIcon : inactiveIcon;
+    this.layerGroup = leaflet.layerGroup(offers.map((offerOnMap)=>{
+      const icon = getIcon(offerOnMap.id);
       return leaflet
-      .marker(offer.coordinates, {icon});
+      .marker(offerOnMap.coordinates, {icon});
     }));
     this.layerGroup.addTo(this.map);
   }
@@ -58,7 +58,7 @@ export class Map extends React.PureComponent {
   componentDidUpdate() {
     this.layerGroup.clearLayers();
     this.renderMarkers();
-    const city = CITIES_CORDINATES[this.props.currentCity];
+    const city = CITIES_COORDINATES[this.props.city];
     this.map.flyTo(city, ZOOM);
   }
 
@@ -72,6 +72,6 @@ export class Map extends React.PureComponent {
 Map.propTypes = {
   offers: PropTypes.arrayOf(OfferProps).isRequired,
   className: PropTypes.string,
-  currentCity: PropTypes.string.isRequired,
-  offerActive: PropTypes.number,
+  city: PropTypes.string.isRequired,
+  offer: PropTypes.number,
 };

@@ -32,7 +32,7 @@ export const sortByType = (offers, filter) => {
     case FilterTypes.PRICE_LOW_TO_HIGH:
       return offers.sort((a, b) => a.price - b.price);
     case FilterTypes.TOP_RATED_FIRST:
-      return offers.sort((a, b) => a.rating - b.rating);
+      return offers.sort((a, b) => b.rating - a.rating);
     default:
       return FilterTypes.POPULAR;
   }

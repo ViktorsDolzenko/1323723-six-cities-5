@@ -85,9 +85,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getOffer(city, offers) {
     dispatch(ActionCreator.getOffer(city, offers));
-  },
-  sortOffers(currentFilter, filteredOffers) {
-    dispatch(ActionCreator.sortOffers(currentFilter, filteredOffers));
   }
 });
 

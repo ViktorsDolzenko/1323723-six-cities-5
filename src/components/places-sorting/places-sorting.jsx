@@ -1,46 +1,37 @@
-import React from "react";
+import React, {useState} from "react";
 import {FilterTypes} from "../../const";
 import {ActionCreator} from "../../store/action";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {OfferProps} from "../../property-types";
 
-const OPEN_FILTER_POPUP = `places__options--opened`;
-
-const PlacesSortingComponent = (props) => {
-  const filterPopup = React.createRef();
-
-  const toggleFilterPopup = () =>{
-    filterPopup.current.classList.toggle(OPEN_FILTER_POPUP);
+const PlacesSortingComponent = ({filteredOffers, filter, sortOffers}) => {
+  const [opened, setOpened] = useState(false);
+  const toggleSortingPopup = () => {
+    setOpened(!opened);
   };
 
-  const handleFilterOpening = () => {
-    toggleFilterPopup();
-  };
-
-  const handleFilterChange = (selectedFilter) => {
-    if (filter !== selectedFilter) {
-      sortOffers(selectedFilter, filteredOffers);
-    }
-  };
 
   const handleFilterClick = (evt) => {
     const selectedFilter = evt.target.textContent;
-    handleFilterChange(selectedFilter);
-    toggleFilterPopup();
+    if (filter !== selectedFilter) {
+      sortOffers(selectedFilter, filteredOffers);
+    }
+    toggleSortingPopup();
   };
 
-  const {filteredOffers, filter, sortOffers} = props;
+  const optionsClassName = opened ? `places__options--opened` : ``;
+
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
-      <span className="places__sorting-type" tabIndex="0" onClick={handleFilterOpening}>
+      <span className="places__sorting-type" tabIndex="0" onClick={toggleSortingPopup}>
         {filter}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"/>
         </svg>
       </span>
-      <ul ref={filterPopup} className="places__options places__options--custom">
+      <ul className={`places__options places__options--custom ${optionsClassName}`}>
         {Object.values(FilterTypes).map((filterType, index)=>{
           return (
             <li key={filterType + index}

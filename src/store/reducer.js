@@ -16,12 +16,12 @@ const reducer = (state = initialState, action) => {
     case ActionType.GET_OFFER:
       return extend(state, {
         city: action.payload.city,
-        filteredOffers: action.payload.filteredOffers
+        filteredOffers: Array.from(action.payload.filteredOffers)
       });
     case ActionType.SORT_OFFER:
       return extend(state, {
         filter: action.payload.filter,
-        filteredOffers: sortByType(action.payload.filteredOffers, action.payload.filter)
+        filteredOffers: Array.from(sortByType(action.payload.filteredOffers, action.payload.filter))
       });
   }
   return state;

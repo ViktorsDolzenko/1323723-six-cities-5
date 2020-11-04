@@ -7,7 +7,7 @@ export const Cities = {
   DUSSELDORF: `Dusseldorf`
 };
 
-export const CITIES_COORDINATES = {
+export const CitiesCoordinates = {
   [Cities.AMSTERDAM]: [52.38333, 4.9],
   [Cities.BRUSSELS]: [50.85045, 4.34878],
   [Cities.PARIS]: [48.864716, 2.349014],

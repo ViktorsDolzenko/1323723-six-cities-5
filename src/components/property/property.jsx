@@ -1,15 +1,19 @@
 import React from "react";
-import PropTypes from "prop-types";
+import {connect} from "react-redux";
 import {Link} from "react-router-dom";
+import PropTypes from "prop-types";
 import {ReviewForm} from "../review-form/review-form";
 import {ReviewList} from "../review-list/review-list";
 import {Map} from "../map/map";
-import {OfferProps} from "../../property-types";
-import {connect} from "react-redux";
+import {offerProps} from "../../property-types";
+import {CitiesCoordinates} from "../../const";
+import {withOfferActive} from "../../hocs/withOfferActive/withOfferActive";
+import {NearPlaces} from "../near-places/nearPlaces";
+import {selectIcons} from "../../selectors/selectors";
 import {OfferCards} from "../offer-cards/offer-cards";
 
 const PropertyComponent = (props) => {
-  const {offer, reviews, onEmailLinkClick, city, filteredOffers} = props;
+  const {offer, reviews, onEmailLinkClick, city, offers, icons, offerActive, onOfferCardHover, onOfferCardLeave} = props;
 
   const photoElements = offer.photo.map((image, index) => {
     return (
@@ -134,18 +138,11 @@ const PropertyComponent = (props) => {
           </div>
         </div>
         <section className="property__map map" style={{padding: `0 15rem`}}>
-          {<Map offers={filteredOffers} city={city}/>}
+          {<Map icons={icons} center={CitiesCoordinates[city]} activeIconId={offerActive}/>}
         </section>
       </section>
-      <div className="container">
-        <section className="near-places places">
-          <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          <div className="near-places__list places__list">
-            {filteredOffers.map((offerInDetails) =>
-              <OfferCards offer={offerInDetails} key={offerInDetails.id} />
-            )}</div>
-        </section>
-      </div>
+      <NearPlaces offer={offer} offers={offers} onOfferCardHover={onOfferCardHover}
+        onOfferCardLeave={onOfferCardLeave}/>
       <footer className="footer container">
         <Link className="footer__logo-link" to={`/`}>
           <img className="footer__logo" src="/img/logo.svg" alt="6 cities logo" width="64" height="33"/>
@@ -157,15 +154,16 @@ const PropertyComponent = (props) => {
 
 PropertyComponent.propTypes = {
   onEmailLinkClick: PropTypes.func.isRequired,
-  offer: PropTypes.shape(OfferProps.isRequired).isRequired,
+  offer: PropTypes.shape(offerProps.isRequired).isRequired,
   reviews: PropTypes.array.isRequired,
   city: PropTypes.string.isRequired,
-  filteredOffers: PropTypes.arrayOf(PropTypes.shape(OfferProps.isRequired)).isRequired,
+  offers: PropTypes.arrayOf(PropTypes.shape(offerProps.isRequired)).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   city: state.city,
-  filteredOffers: state.filteredOffers,
+  offers: state.filteredOffers,
+  icons: selectIcons(state),
 });
 
-export const Property = connect(mapStateToProps)(PropertyComponent);
+export const Property = connect(mapStateToProps)(withOfferActive(PropertyComponent));

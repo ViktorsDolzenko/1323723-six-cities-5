@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-export const OfferProps = PropTypes.shape({
+export const offerProps = PropTypes.shape({
   id: PropTypes.number.isRequired,
   photo: PropTypes.array.isRequired,
   premium: PropTypes.bool.isRequired,
@@ -18,7 +18,7 @@ export const OfferProps = PropTypes.shape({
 }).isRequired;
 
 
-export const ReviewProps = PropTypes.shape({
+export const reviewProps = PropTypes.shape({
   avatar: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   stars: PropTypes.string.isRequired,
@@ -26,3 +26,9 @@ export const ReviewProps = PropTypes.shape({
   id: PropTypes.number.isRequired,
 }).isRequired;
 
+export const coordinatesPropTypes = PropTypes.arrayOf(PropTypes.number).isRequired;
+
+export const iconsCoordinatesPropTypes = PropTypes.shape({
+  id: PropTypes.number.isRequired,
+  coordinates: PropTypes.arrayOf(PropTypes.number).isRequired
+});

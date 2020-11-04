@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {OfferCards} from "../offer-cards/offer-cards";
-import {OfferProps} from "../../property-types.js";
+import {offerProps} from "../../property-types.js";
 
 export const FavoritesScreen = (props) =>{
   const {offers} = props;
@@ -22,6 +22,6 @@ export const FavoritesScreen = (props) =>{
 };
 
 FavoritesScreen.propTypes = {
-  offers: PropTypes.arrayOf(OfferProps).isRequired
+  offers: PropTypes.arrayOf(offerProps).isRequired
 };
 

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {ReviewProps} from "../../property-types";
+import {reviewProps} from "../../property-types";
 
 export class ReviewItem extends React.PureComponent {
   constructor(props) {
@@ -38,5 +38,5 @@ export class ReviewItem extends React.PureComponent {
 }
 
 ReviewItem.propTypes = {
-  review: PropTypes.shape(ReviewProps.isRequired).isRequired,
+  review: PropTypes.shape(reviewProps.isRequired).isRequired,
 };

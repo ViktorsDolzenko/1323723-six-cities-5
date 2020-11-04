@@ -5,7 +5,7 @@ import {MainPage} from "../main-page/main-page";
 import {Favorites} from "../favorites/favorites";
 import {Login} from "../login/login";
 import {Property} from "../property/property";
-import {ReviewProps} from "../../property-types";
+import {reviewProps} from "../../property-types";
 
 export const App = (props) => {
   const {offers, reviews} = props;
@@ -60,5 +60,5 @@ App.propTypes = {
     stars: PropTypes.string.isRequired,
     bookmarks: PropTypes.bool.isRequired,
   })).isRequired,
-  reviews: PropTypes.arrayOf(PropTypes.shape(ReviewProps)).isRequired,
+  reviews: PropTypes.arrayOf(PropTypes.shape(reviewProps)).isRequired,
 };

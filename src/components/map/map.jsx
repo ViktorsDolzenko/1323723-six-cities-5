@@ -2,8 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import leaflet from "leaflet";
 import "leaflet/dist/leaflet.css";
-import {OfferProps} from "../../property-types.js";
-import {CITIES_COORDINATES} from "../../const";
+import {coordinatesPropTypes, iconsCoordinatesPropTypes} from "../../property-types";
 
 const inactiveIcon = leaflet.icon({
   iconUrl: `../img/pin.svg`,
@@ -15,7 +14,11 @@ const activeIcon = leaflet.icon({
   iconSize: [30, 30]
 });
 
-const ZOOM = 12;
+function getIcon(currentIcon, activeIconId) {
+  return activeIconId === currentIcon.id ? activeIcon : inactiveIcon;
+}
+
+const ZOOM_LEVEL = 12;
 
 export class Map extends React.PureComponent {
   constructor(props) {
@@ -24,14 +27,14 @@ export class Map extends React.PureComponent {
   }
 
   renderMap() {
-    const city = CITIES_COORDINATES[this.props.city];
+    const city = this.props.center;
     this.map = leaflet.map(this.mapRef.current, {
       center: city,
-      zoom: ZOOM,
+      zoom: ZOOM_LEVEL,
       zoomControl: false,
       marker: true
     });
-    this.map.setView(city, ZOOM);
+    this.map.setView(city, ZOOM_LEVEL);
 
     leaflet
     .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
@@ -42,12 +45,11 @@ export class Map extends React.PureComponent {
   }
 
   renderMarkers() {
-    const {offers, offer} = this.props;
-    const getIcon = (id) => offer === id ? activeIcon : inactiveIcon;
-    this.layerGroup = leaflet.layerGroup(offers.map((offerOnMap)=>{
-      const icon = getIcon(offerOnMap.id);
+    const {icons, activeIconId} = this.props;
+    this.layerGroup = leaflet.layerGroup(icons.map((currentIcon) => {
+      const icon = getIcon(currentIcon, activeIconId);
       return leaflet
-      .marker(offerOnMap.coordinates, {icon});
+      .marker(currentIcon.coordinates, {icon});
     }));
     this.layerGroup.addTo(this.map);
   }
@@ -58,8 +60,8 @@ export class Map extends React.PureComponent {
   componentDidUpdate() {
     this.layerGroup.clearLayers();
     this.renderMarkers();
-    const city = CITIES_COORDINATES[this.props.city];
-    this.map.flyTo(city, ZOOM);
+    const city = this.props.center;
+    this.map.flyTo(city, ZOOM_LEVEL);
   }
 
   render() {
@@ -70,8 +72,7 @@ export class Map extends React.PureComponent {
 }
 
 Map.propTypes = {
-  offers: PropTypes.arrayOf(OfferProps).isRequired,
-  className: PropTypes.string,
-  city: PropTypes.string.isRequired,
-  offer: PropTypes.number,
+  icons: iconsCoordinatesPropTypes.isRequired,
+  center: coordinatesPropTypes.isRequired,
+  activeIconId: PropTypes.number,
 };

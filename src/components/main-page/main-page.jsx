@@ -3,12 +3,12 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {ActionCreator} from '../../store/action';
-import {OfferProps} from '../../property-types';
+import {offerProps} from '../../property-types';
 import {OffersScreen} from '../offers-screen/offers-screen';
 import {CityList} from '../city-list/city-list';
 
 const MainPageComponent = (props) => {
-  const {offers, onEmailLinkClick, city, getOffer, filteredOffers, filter} = props;
+  const {offers, onEmailLinkClick, city, getOffer, filter} = props;
   const handleCityClick = (evt) => {
     evt.preventDefault();
     const selectedCity = evt.target.textContent;
@@ -54,7 +54,7 @@ const MainPageComponent = (props) => {
         <div className="cities">
           <div className="cities__places-container container">
             <h1 className="visually-hidden">Cities</h1>
-            <OffersScreen city={city} offers={filteredOffers} />
+            <OffersScreen/>
           </div>
         </div>
       </main>
@@ -72,7 +72,7 @@ MainPageComponent.propTypes = {
   offers: PropTypes.array.isRequired,
   city: PropTypes.string.isRequired,
   getOffer: PropTypes.func.isRequired,
-  filteredOffers: PropTypes.arrayOf(OfferProps),
+  filteredOffers: PropTypes.arrayOf(offerProps),
   filter: PropTypes.string.isRequired,
 };
 

@@ -3,7 +3,7 @@ import {FilterTypes} from "../../const";
 import {ActionCreator} from "../../store/action";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import {OfferProps} from "../../property-types";
+import {offerProps} from "../../property-types";
 
 const PlacesSortingComponent = ({filteredOffers, filter, sortOffers}) => {
   const [opened, setOpened] = useState(false);
@@ -49,7 +49,7 @@ const PlacesSortingComponent = ({filteredOffers, filter, sortOffers}) => {
 };
 
 PlacesSortingComponent.propTypes = {
-  filteredOffers: PropTypes.arrayOf(OfferProps).isRequired,
+  filteredOffers: PropTypes.arrayOf(offerProps).isRequired,
   filter: PropTypes.string.isRequired,
   sortOffers: PropTypes.func.isRequired
 };

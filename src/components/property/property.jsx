@@ -5,12 +5,11 @@ import PropTypes from "prop-types";
 import {ReviewForm} from "../review-form/review-form";
 import {ReviewList} from "../review-list/review-list";
 import {Map} from "../map/map";
-import {offerProps} from "../../property-types";
+import {iconsCoordinatesPropTypes, offerProps} from "../../property-types";
 import {CitiesCoordinates} from "../../const";
 import {withOfferActive} from "../../hocs/withOfferActive/withOfferActive";
 import {NearPlaces} from "../near-places/nearPlaces";
 import {selectIcons} from "../../selectors/selectors";
-import {OfferCards} from "../offer-cards/offer-cards";
 
 const PropertyComponent = (props) => {
   const {offer, reviews, onEmailLinkClick, city, offers, icons, offerActive, onOfferCardHover, onOfferCardLeave} = props;
@@ -158,6 +157,10 @@ PropertyComponent.propTypes = {
   reviews: PropTypes.array.isRequired,
   city: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape(offerProps.isRequired)).isRequired,
+  offerActive: PropTypes.number,
+  onOfferCardHover: PropTypes.func.isRequired,
+  onOfferCardLeave: PropTypes.func.isRequired,
+  icons: iconsCoordinatesPropTypes
 };
 
 const mapStateToProps = (state) => ({

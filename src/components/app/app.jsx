@@ -5,7 +5,7 @@ import {MainPage} from "../main-page/main-page";
 import {Favorites} from "../favorites/favorites";
 import {Login} from "../login/login";
 import {Property} from "../property/property";
-import {reviewProps} from "../../property-types";
+import {offerProps, reviewProps} from "../../property-types";
 
 export const App = (props) => {
   const {offers, reviews} = props;
@@ -16,7 +16,6 @@ export const App = (props) => {
         <Route exact path="/"
           render={({history}) => (
             <MainPage
-              offers={offers}
               onEmailLinkClick={() => history.push(`/favorites`)}
             />
           )}>
@@ -49,16 +48,6 @@ export const App = (props) => {
 };
 
 App.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    photo: PropTypes.array.isRequired,
-    premium: PropTypes.bool.isRequired,
-    price: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-    stars: PropTypes.string.isRequired,
-    bookmarks: PropTypes.bool.isRequired,
-  })).isRequired,
+  offers: PropTypes.arrayOf(offerProps),
   reviews: PropTypes.arrayOf(PropTypes.shape(reviewProps)).isRequired,
 };

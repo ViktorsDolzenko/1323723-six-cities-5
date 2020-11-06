@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {offerProps} from "../../property-types";
 
-const PlacesSortingComponent = ({filteredOffers, filter, sortOffers}) => {
+const PlacesSortingComponent = ({offers, filter, sortOffers}) => {
   const [opened, setOpened] = useState(false);
   const toggleSortingPopup = () => {
     setOpened(!opened);
@@ -15,7 +15,7 @@ const PlacesSortingComponent = ({filteredOffers, filter, sortOffers}) => {
   const handleFilterClick = (evt) => {
     const selectedFilter = evt.target.textContent;
     if (filter !== selectedFilter) {
-      sortOffers(selectedFilter, filteredOffers);
+      sortOffers(selectedFilter, offers);
     }
     toggleSortingPopup();
   };
@@ -49,19 +49,19 @@ const PlacesSortingComponent = ({filteredOffers, filter, sortOffers}) => {
 };
 
 PlacesSortingComponent.propTypes = {
-  filteredOffers: PropTypes.arrayOf(offerProps).isRequired,
+  offers: PropTypes.arrayOf(offerProps).isRequired,
   filter: PropTypes.string.isRequired,
   sortOffers: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  filteredOffers: state.filteredOffers,
+  offers: state.offers,
   filter: state.filter
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  sortOffers(filter, filteredOffers) {
-    dispatch(ActionCreator.sortOffers(filter, filteredOffers));
+  sortOffers(filter, offers) {
+    dispatch(ActionCreator.sortOffers(filter, offers));
   }
 });
 

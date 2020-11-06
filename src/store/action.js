@@ -1,24 +1,19 @@
-import {getOfferByCity} from "../util";
-
-
 export const ActionType = {
-  GET_OFFER: `GET_OFFER`,
+  GET_OFFER_BY_CITY: `GET_OFFER`,
   SORT_OFFER: `SORT_OFFER`
 };
 
 export const ActionCreator = {
-  getOffer: (city, offers) => ({
-    type: ActionType.GET_OFFER,
+  getOffer: (city) => ({
+    type: ActionType.GET_OFFER_BY_CITY,
     payload: {
       city,
-      filteredOffers: getOfferByCity(offers, city)
     }
   }),
-  sortOffers: (filter, filteredOffers) => ({
+  sortOffers: (filter) => ({
     type: ActionType.SORT_OFFER,
     payload: {
-      filter,
-      filteredOffers
+      filter
     }
   })
 };

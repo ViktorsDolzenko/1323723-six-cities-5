@@ -8,12 +8,12 @@ import {OffersScreen} from '../offers-screen/offers-screen';
 import {CityList} from '../city-list/city-list';
 
 const MainPageComponent = (props) => {
-  const {offers, onEmailLinkClick, city, getOffer, filter} = props;
+  const {offers, onEmailLinkClick, city, getOfferByCity, filter} = props;
   const handleCityClick = (evt) => {
     evt.preventDefault();
     const selectedCity = evt.target.textContent;
     if (selectedCity !== city) {
-      getOffer(selectedCity, offers, filter);
+      getOfferByCity(selectedCity, offers, filter);
     }
   };
 
@@ -69,22 +69,21 @@ const MainPageComponent = (props) => {
 
 MainPageComponent.propTypes = {
   onEmailLinkClick: PropTypes.func.isRequired,
-  offers: PropTypes.array.isRequired,
+  offers: PropTypes.arrayOf(offerProps),
   city: PropTypes.string.isRequired,
-  getOffer: PropTypes.func.isRequired,
-  filteredOffers: PropTypes.arrayOf(offerProps),
+  getOfferByCity: PropTypes.func.isRequired,
   filter: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   city: state.city,
-  filteredOffers: state.filteredOffers,
+  offers: state.offers,
   filter: state.filter
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getOffer(city, offers) {
-    dispatch(ActionCreator.getOffer(city, offers));
+  getOfferByCity(city) {
+    dispatch(ActionCreator.getOffer(city));
   }
 });
 

@@ -72,7 +72,7 @@ export class Map extends React.PureComponent {
 }
 
 Map.propTypes = {
-  icons: iconsCoordinatesPropTypes.isRequired,
-  center: coordinatesPropTypes.isRequired,
+  icons: PropTypes.arrayOf(iconsCoordinatesPropTypes).isRequired,
+  center: coordinatesPropTypes,
   activeIconId: PropTypes.number,
 };

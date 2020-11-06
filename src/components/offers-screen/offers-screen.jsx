@@ -17,7 +17,7 @@ const OffersScreenComponent = ({offers, city, offerActive, onOfferCardHover, onO
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
         <b className="places__found">{offers.length} places to stay in {city}</b>
-        <PlacesSorting offers={offers} />
+        <PlacesSorting/>
         <div className="cities__places-list places__list tabs__content">
           {offers.map((offer) =>
             <OfferCards
@@ -45,12 +45,12 @@ OffersScreenComponent.propTypes = {
   offerActive: PropTypes.number,
   onOfferCardHover: PropTypes.func.isRequired,
   onOfferCardLeave: PropTypes.func.isRequired,
-  icons: iconsCoordinatesPropTypes
+  icons: PropTypes.arrayOf(iconsCoordinatesPropTypes).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   city: state.city,
-  offers: state.filteredOffers,
+  offers: state.offers,
   filter: state.filter,
   icons: selectIcons(state),
 });

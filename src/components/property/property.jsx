@@ -160,12 +160,12 @@ PropertyComponent.propTypes = {
   offerActive: PropTypes.number,
   onOfferCardHover: PropTypes.func.isRequired,
   onOfferCardLeave: PropTypes.func.isRequired,
-  icons: iconsCoordinatesPropTypes
+  icons: PropTypes.arrayOf(iconsCoordinatesPropTypes).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   city: state.city,
-  offers: state.filteredOffers,
+  offers: state.offers,
   icons: selectIcons(state),
 });
 

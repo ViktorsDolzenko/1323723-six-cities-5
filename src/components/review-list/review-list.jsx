@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import ReviewItem from "../review-item/review-item";
-const ReviewList = (props) => {
+import {ReviewItem} from "../review-item/review-item";
+import {reviewProps} from "../../property-types";
+export const ReviewList = (props) => {
   const {reviews} = props;
   return (
     <div>
@@ -9,7 +10,7 @@ const ReviewList = (props) => {
       <ul className="reviews__list">{
         reviews.map((review)=>
           <ReviewItem
-            key={review.reviewId}
+            key={review.id}
             review={review}/>
         )
       }
@@ -18,8 +19,6 @@ const ReviewList = (props) => {
   );
 };
 
-
 ReviewList.propTypes = {
-  reviews: PropTypes.array.isRequired
+  reviews: PropTypes.arrayOf(reviewProps).isRequired
 };
-export default ReviewList;

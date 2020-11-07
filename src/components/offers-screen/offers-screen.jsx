@@ -1,32 +1,23 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import OfferCards from "../offer-cards/offer-cards";
-import {OfferProps} from "../../property-types.js";
-export default class OffersScreen extends PureComponent {
-  constructor(props) {
-    super(props);
+import {Map} from "../map/map";
+import {PlacesSorting} from "../places-sorting/places-sorting";
+import {OfferCards} from "../offer-cards/offer-cards";
+import {offerProps, iconsCoordinatesPropTypes} from "../../property-types.js";
+import {withOfferActive} from "../../hocs/withOfferActive/withOfferActive";
+import {connect} from "react-redux";
+import {selectIcons} from "../../selectors/selectors";
+import {CitiesCoordinates} from "../../const";
 
-    this.state = {
-      offerActive: null
-    };
 
-    this._handleOfferCardHover = this._handleOfferCardHover.bind(this);
-    this._handleOfferCardLeave = this._handleOfferCardLeave.bind(this);
-  }
+const OffersScreenComponent = ({offers, city, offerActive, onOfferCardHover, onOfferCardLeave, icons}) =>{
 
-  _handleOfferCardLeave() {
-    this.setState({offerActive: null});
-  }
-
-  _handleOfferCardHover(offerId) {
-    this.setState({offerActive: offerId});
-  }
-  render() {
-    const {offers, city} = this.props;
-    return (
+  return (
+    <>
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
         <b className="places__found">{offers.length} places to stay in {city}</b>
+        <PlacesSorting/>
         <div className="cities__places-list places__list tabs__content">
           {offers.map((offer) =>
             <OfferCards
@@ -34,16 +25,35 @@ export default class OffersScreen extends PureComponent {
               offer={offer}
               articleClass={`cities__place-card`}
               imgClass={`cities`}
-              onOfferCardHover={this._handleOfferCardHover}
-              onOfferCardLeave={this._handleOfferCardLeave}/>
+              onOfferCardHover={onOfferCardHover}
+              onOfferCardLeave={onOfferCardLeave}/>
           )}
         </div>
       </section>
-    );
-  }
-
-}
-OffersScreen.propTypes = {
-  offers: PropTypes.arrayOf(OfferProps).isRequired,
+      <div className="cities__right-section">
+        <section className="cities__map map">
+          <Map center={CitiesCoordinates[city]} icons={icons} activeIconId={offerActive} />
+        </section>
+      </div>
+    </>
+  );
 };
+
+OffersScreenComponent.propTypes = {
+  offers: PropTypes.arrayOf(offerProps).isRequired,
+  city: PropTypes.string.isRequired,
+  offerActive: PropTypes.number,
+  onOfferCardHover: PropTypes.func.isRequired,
+  onOfferCardLeave: PropTypes.func.isRequired,
+  icons: PropTypes.arrayOf(iconsCoordinatesPropTypes).isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  city: state.city,
+  offers: state.offers,
+  filter: state.filter,
+  icons: selectIcons(state),
+});
+
+export const OffersScreen = connect(mapStateToProps)(withOfferActive(OffersScreenComponent));
 

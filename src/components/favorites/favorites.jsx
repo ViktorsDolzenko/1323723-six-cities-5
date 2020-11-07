@@ -1,11 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import FavoritesScreen from "../favorites-screen/favorites-screen";
 import {Link} from "react-router-dom";
-const Favorites = (props) =>{
+import {FavoritesScreen} from "../favorites-screen/favorites-screen";
 
+export const Favorites = (props) =>{
   const {offers} = props;
-
   return (
     <div className="page">
       <header className="header">
@@ -13,7 +12,7 @@ const Favorites = (props) =>{
           <div className="header__wrapper">
             <div className="header__left">
               <Link className="header__logo-link" to={`/`}>
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"></img>
+                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
               </Link>
             </div>
             <nav className="header__nav">
@@ -50,7 +49,7 @@ const Favorites = (props) =>{
       </div>
       <footer className="footer container">
         <Link className="footer__logo-link" to={`/`}>
-          <img className="footer__logo" src="/img/logo.svg" alt="6 cities logo" width="64" height="33"></img>
+          <img className="footer__logo" src="/img/logo.svg" alt="6 cities logo" width="64" height="33"/>
         </Link>
       </footer>
     </div>
@@ -64,11 +63,9 @@ Favorites.propTypes = {
     premium: PropTypes.bool.isRequired,
     price: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequred,
+    type: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
     stars: PropTypes.string.isRequired,
     bookmarks: PropTypes.bool.isRequired
   })).isRequired
 };
-
-export default Favorites;

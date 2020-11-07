@@ -1,21 +1,19 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import OffersScreen from '../offers-screen/offers-screen';
-import {Link} from 'react-router-dom';
-import CityList from '../city-list/city-list';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 import {ActionCreator} from '../../store/action';
-import {OfferProps} from '../../property-types';
-import Map from "../map/map";
+import {offerProps} from '../../property-types';
+import {OffersScreen} from '../offers-screen/offers-screen';
+import {CityList} from '../city-list/city-list';
 
-const MainPage = (props) => {
-  const {offers, onEmailLinkClick, city, getOffer, filtredOffers} = props;
-
+const MainPageComponent = (props) => {
+  const {offers, onEmailLinkClick, city, getOfferByCity, filter} = props;
   const handleCityClick = (evt) => {
     evt.preventDefault();
     const selectedCity = evt.target.textContent;
     if (selectedCity !== city) {
-      getOffer(selectedCity, offers);
+      getOfferByCity(selectedCity, offers, filter);
     }
   };
 
@@ -41,8 +39,7 @@ const MainPage = (props) => {
                   <a
                     className="header__nav-link header__nav-link--profile"
                     href="#"
-                    onClick={onEmailLinkClick}
-                  >
+                    onClick={onEmailLinkClick}>
                     <div className="header__avatar-wrapper user__avatar-wrapper" />
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
                   </a>
@@ -57,12 +54,7 @@ const MainPage = (props) => {
         <div className="cities">
           <div className="cities__places-container container">
             <h1 className="visually-hidden">Cities</h1>
-            <OffersScreen city={city} offers={filtredOffers} />
-            <div className="cities__right-section">
-              <section className="cities__map map">
-                <Map currentCity={city} offers={offers} />
-              </section>
-            </div>
+            <OffersScreen/>
           </div>
         </div>
       </main>
@@ -75,23 +67,24 @@ const MainPage = (props) => {
   );
 };
 
-MainPage.propTypes = {
+MainPageComponent.propTypes = {
   onEmailLinkClick: PropTypes.func.isRequired,
-  offers: PropTypes.array.isRequired,
+  offers: PropTypes.arrayOf(offerProps),
   city: PropTypes.string.isRequired,
-  getOffer: PropTypes.func.isRequired,
-  filtredOffers: PropTypes.arrayOf(OfferProps)
+  getOfferByCity: PropTypes.func.isRequired,
+  filter: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   city: state.city,
-  filtredOffers: state.filtredOffers
+  offers: state.offers,
+  filter: state.filter
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getOffer(city, offers) {
-    dispatch(ActionCreator.getOffer(city, offers));
+  getOfferByCity(city) {
+    dispatch(ActionCreator.getOffer(city));
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
+export const MainPage = connect(mapStateToProps, mapDispatchToProps)(MainPageComponent);

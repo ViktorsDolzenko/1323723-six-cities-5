@@ -2,6 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import {FavoritesScreen} from "../favorites-screen/favorites-screen";
 import {offerProps} from "../../property-types.js";
+import PropTypes from "prop-types";
 
 export const Favorites = (props) =>{
   const {offers} = props;
@@ -57,5 +58,5 @@ export const Favorites = (props) =>{
 };
 
 Favorites.propTypes = {
-  offers: offerProps.isRequired
+  offers: PropTypes.arrayOf(offerProps).isRequired,
 };

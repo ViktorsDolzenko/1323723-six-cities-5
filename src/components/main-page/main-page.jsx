@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {ActionCreator} from '../../store/action';
-import {offerProps} from '../../property-types';
 import {OffersScreen} from '../offers-screen/offers-screen';
 import {CityList} from '../city-list/city-list';
 

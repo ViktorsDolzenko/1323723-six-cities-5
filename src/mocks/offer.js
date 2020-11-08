@@ -1,4 +1,4 @@
-export default [
+export const offers = [
   {
     id: 100,
     city: `Amsterdam`,

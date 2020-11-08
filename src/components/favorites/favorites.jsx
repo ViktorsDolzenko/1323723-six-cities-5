@@ -1,7 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import {FavoritesScreen} from "../favorites-screen/favorites-screen";
+import {offerProps} from "../../property-types.js";
 
 export const Favorites = (props) =>{
   const {offers} = props;
@@ -57,15 +57,5 @@ export const Favorites = (props) =>{
 };
 
 Favorites.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    photo: PropTypes.array.isRequired,
-    premium: PropTypes.bool.isRequired,
-    price: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-    stars: PropTypes.string.isRequired,
-    bookmarks: PropTypes.bool.isRequired
-  })).isRequired
+  offers: offerProps.isRequired
 };

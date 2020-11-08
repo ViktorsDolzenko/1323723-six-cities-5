@@ -49,5 +49,4 @@ export const App = (props) => {
 
 App.propTypes = {
   offers: PropTypes.arrayOf(offerProps),
-  reviews: PropTypes.arrayOf(PropTypes.shape(reviewProps)).isRequired,
 };

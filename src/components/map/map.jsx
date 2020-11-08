@@ -27,14 +27,13 @@ export class Map extends React.PureComponent {
   }
 
   renderMap() {
-    const city = this.props.center;
     this.map = leaflet.map(this.mapRef.current, {
-      center: city,
+      center: this.props.center,
       zoom: ZOOM_LEVEL,
       zoomControl: false,
       marker: true
     });
-    this.map.setView(city, ZOOM_LEVEL);
+    this.map.setView(this.props.center, ZOOM_LEVEL);
 
     leaflet
     .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
@@ -60,8 +59,7 @@ export class Map extends React.PureComponent {
   componentDidUpdate() {
     this.layerGroup.clearLayers();
     this.renderMarkers();
-    const city = this.props.center;
-    this.map.flyTo(city, ZOOM_LEVEL);
+    this.map.flyTo(this.props.center, ZOOM_LEVEL);
   }
 
   render() {

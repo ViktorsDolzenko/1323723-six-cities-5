@@ -1,4 +1,4 @@
-export default [
+export const reviews = [
   {
     id: 100,
     avatar: `/img/avatar-max.jpg`,

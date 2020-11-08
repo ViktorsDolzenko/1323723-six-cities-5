@@ -1,30 +1,30 @@
 import React from "react";
 
-export const withOfferActive = (Component) => {
+export const withActiveOffer = (Component) => {
   class WithOfferActive extends React.PureComponent {
     constructor(props) {
       super(props);
       this.state = {
-        offerActive: null,
+        activeOffer: null,
       };
       this._handleOfferCardHover = this._handleOfferCardHover.bind(this);
       this._handleOfferCardLeave = this._handleOfferCardLeave.bind(this);
     }
 
     _handleOfferCardLeave() {
-      this.setState({offerActive: null});
+      this.setState({activeOffer: null});
     }
 
     _handleOfferCardHover(offerId) {
-      this.setState({offerActive: offerId});
+      this.setState({activeOffer: offerId});
     }
 
     render() {
-      const {offerActive} = this.state;
+      const {activeOffer} = this.state;
       return (
         <Component
           {...this.props}
-          offerActive = {offerActive}
+          activeOffer = {activeOffer}
           onOfferCardHover={this._handleOfferCardHover}
           onOfferCardLeave={this._handleOfferCardLeave}
         />

@@ -1,4 +1,4 @@
-import offers from "../mocks/offer";
+import {offers} from "../mocks/offer";
 import {Cities, FilterTypes} from "../const.js";
 import {extend, getOfferByCity} from "../util";
 import {ActionType} from "./action";
@@ -8,8 +8,8 @@ const initialState = {
   filter: FilterTypes.POPULAR
 };
 
-export const sortByType = (offerss, filter) => {
-  const clonedOffers = Array.from(offerss);
+export const sortByType = (offer, filter) => {
+  const clonedOffers = Array.from(offer);
   switch (filter) {
     case FilterTypes.POPULAR:
       return clonedOffers;

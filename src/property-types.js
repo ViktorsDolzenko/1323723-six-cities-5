@@ -15,7 +15,7 @@ export const offerProps = PropTypes.shape({
   bedrooms: PropTypes.number.isRequired,
   hostName: PropTypes.string.isRequired,
   hostAvatar: PropTypes.string.isRequired
-}).isRequired;
+});
 
 
 export const reviewProps = PropTypes.shape({
@@ -24,7 +24,7 @@ export const reviewProps = PropTypes.shape({
   stars: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
-}).isRequired;
+});
 
 export const coordinatesPropTypes = PropTypes.arrayOf(PropTypes.number).isRequired;
 

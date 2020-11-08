@@ -1,5 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
+import {compose} from "redux";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import {ReviewForm} from "../review-form/review-form";
@@ -7,12 +8,12 @@ import {ReviewList} from "../review-list/review-list";
 import {Map} from "../map/map";
 import {iconsCoordinatesPropTypes, offerProps} from "../../property-types";
 import {CitiesCoordinates} from "../../const";
-import {withOfferActive} from "../../hocs/withOfferActive/withOfferActive";
+import {withActiveOffer} from "../../hocs/withOfferActive/withActiveOffer";
 import {NearPlaces} from "../near-places/nearPlaces";
 import {selectIcons} from "../../selectors/selectors";
 
 const PropertyComponent = (props) => {
-  const {offer, reviews, onEmailLinkClick, city, offers, icons, offerActive, onOfferCardHover, onOfferCardLeave} = props;
+  const {offer, reviews, onEmailLinkClick, city, offers, icons, activeOffer, onOfferCardHover, onOfferCardLeave} = props;
 
   const photoElements = offer.photo.map((image, index) => {
     return (
@@ -137,7 +138,7 @@ const PropertyComponent = (props) => {
           </div>
         </div>
         <section className="property__map map" style={{padding: `0 15rem`}}>
-          {<Map icons={icons} center={CitiesCoordinates[city]} activeIconId={offerActive}/>}
+          {<Map icons={icons} center={CitiesCoordinates[city]} activeIconId={activeOffer}/>}
         </section>
       </section>
       <NearPlaces offer={offer} offers={offers} onOfferCardHover={onOfferCardHover}
@@ -157,7 +158,7 @@ PropertyComponent.propTypes = {
   reviews: PropTypes.array.isRequired,
   city: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape(offerProps.isRequired)).isRequired,
-  offerActive: PropTypes.number,
+  activeOffer: PropTypes.number,
   onOfferCardHover: PropTypes.func.isRequired,
   onOfferCardLeave: PropTypes.func.isRequired,
   icons: PropTypes.arrayOf(iconsCoordinatesPropTypes).isRequired,
@@ -168,5 +169,5 @@ const mapStateToProps = (state) => ({
   offers: state.offers,
   icons: selectIcons(state),
 });
+export const Property = compose(withActiveOffer, connect(mapStateToProps))(PropertyComponent);
 
-export const Property = connect(mapStateToProps)(withOfferActive(PropertyComponent));

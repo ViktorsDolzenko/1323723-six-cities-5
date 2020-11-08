@@ -1,16 +1,17 @@
 import React from "react";
+import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {Map} from "../map/map";
 import {PlacesSorting} from "../places-sorting/places-sorting";
 import {OfferCards} from "../offer-cards/offer-cards";
 import {offerProps, iconsCoordinatesPropTypes} from "../../property-types.js";
-import {withOfferActive} from "../../hocs/withOfferActive/withOfferActive";
-import {connect} from "react-redux";
+import {withActiveOffer} from "../../hocs/withOfferActive/withActiveOffer";
 import {selectIcons} from "../../selectors/selectors";
 import {CitiesCoordinates} from "../../const";
+import {compose} from "redux";
 
 
-const OffersScreenComponent = ({offers, city, offerActive, onOfferCardHover, onOfferCardLeave, icons}) =>{
+const OffersScreenComponent = ({offers, city, activeOffer, onOfferCardHover, onOfferCardLeave, icons}) =>{
 
   return (
     <>
@@ -32,7 +33,7 @@ const OffersScreenComponent = ({offers, city, offerActive, onOfferCardHover, onO
       </section>
       <div className="cities__right-section">
         <section className="cities__map map">
-          <Map center={CitiesCoordinates[city]} icons={icons} activeIconId={offerActive} />
+          <Map center={CitiesCoordinates[city]} icons={icons} activeIconId={activeOffer} />
         </section>
       </div>
     </>
@@ -42,7 +43,7 @@ const OffersScreenComponent = ({offers, city, offerActive, onOfferCardHover, onO
 OffersScreenComponent.propTypes = {
   offers: PropTypes.arrayOf(offerProps).isRequired,
   city: PropTypes.string.isRequired,
-  offerActive: PropTypes.number,
+  activeOffer: PropTypes.number,
   onOfferCardHover: PropTypes.func.isRequired,
   onOfferCardLeave: PropTypes.func.isRequired,
   icons: PropTypes.arrayOf(iconsCoordinatesPropTypes).isRequired,
@@ -55,5 +56,5 @@ const mapStateToProps = (state) => ({
   icons: selectIcons(state),
 });
 
-export const OffersScreen = connect(mapStateToProps)(withOfferActive(OffersScreenComponent));
+export const OffersScreen = compose(withActiveOffer, connect(mapStateToProps))(OffersScreenComponent);
 

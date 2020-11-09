@@ -4,7 +4,7 @@ export const ActionType = {
 };
 
 export const ActionCreator = {
-  getOffer: (city) => ({
+  getOfferByCity: (city) => ({
     type: ActionType.GET_OFFER_BY_CITY,
     payload: {
       city,

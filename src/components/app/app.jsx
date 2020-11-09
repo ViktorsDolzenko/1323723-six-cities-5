@@ -48,6 +48,6 @@ export const App = (props) => {
 };
 
 App.propTypes = {
-  offers: PropTypes.arrayOf(offerProps),
-  reviews: PropTypes.arrayOf(PropTypes.shape(reviewProps)).isRequired,
+  offers: PropTypes.arrayOf(offerProps).isRequired,
+  reviews: PropTypes.arrayOf(reviewProps).isRequired,
 };

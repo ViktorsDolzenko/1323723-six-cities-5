@@ -3,17 +3,17 @@ import React from "react";
 export class ReviewForm extends React.PureComponent {
   constructor() {
     super();
-    this.handlerSubmitForm = this.handlerSubmitForm.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
-  handlerSubmitForm(evt) {
+  handleFormSubmit(evt) {
     evt.preventDefault();
     evt.target.reset();
   }
 
   render() {
     return (
-      <form className="reviews__form form" action="#" method="post" onSubmit={this.handlerSubmitForm}>
+      <form className="reviews__form form" action="#" method="post" onSubmit={this.handleFormSubmit}>
         <label className="reviews__label form__label" htmlFor="review">Your review</label>
         <div className="reviews__rating-form form__rating">
           <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio"/>

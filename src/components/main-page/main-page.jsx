@@ -3,17 +3,16 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {ActionCreator} from '../../store/action';
-import {offerProps} from '../../property-types';
 import {OffersScreen} from '../offers-screen/offers-screen';
 import {CityList} from '../city-list/city-list';
 
 const MainPageComponent = (props) => {
-  const {offers, onEmailLinkClick, city, getOfferByCity, filter} = props;
+  const {onEmailLinkClick, city, getOfferByCity} = props;
   const handleCityClick = (evt) => {
     evt.preventDefault();
     const selectedCity = evt.target.textContent;
     if (selectedCity !== city) {
-      getOfferByCity(selectedCity, offers, filter);
+      getOfferByCity(selectedCity);
     }
   };
 
@@ -69,21 +68,17 @@ const MainPageComponent = (props) => {
 
 MainPageComponent.propTypes = {
   onEmailLinkClick: PropTypes.func.isRequired,
-  offers: PropTypes.arrayOf(offerProps),
   city: PropTypes.string.isRequired,
   getOfferByCity: PropTypes.func.isRequired,
-  filter: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   city: state.city,
-  offers: state.offers,
-  filter: state.filter
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getOfferByCity(city) {
-    dispatch(ActionCreator.getOffer(city));
+    dispatch(ActionCreator.getOfferByCity(city));
   }
 });
 

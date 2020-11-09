@@ -1,15 +1,14 @@
 import React from "react";
+import cn from "classnames";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import {offerProps} from "../../property-types.js";
 
 export const OfferCards = ({onOfferCardHover, offer, onOfferCardLeave, articleClass, imgClass, isFavoriteScreen}) => {
 
-  const offerUrl = `/offer/` + offer.id;
-  let bookmarkClass = `place-card__bookmark-button ` + `button`;
-  if (offer.bookmarks) {
-    bookmarkClass += ` place-card__bookmark-button--active`;
-  }
+  const bookmarkClass = cn(`place-card__bookmark-button ` + `button`, {
+    'place-card__bookmark-button--active': offer.bookmarks
+  });
 
   return (
     <article
@@ -31,7 +30,7 @@ export const OfferCards = ({onOfferCardHover, offer, onOfferCardLeave, articleCl
           </div>
       }
       <div className={`${imgClass}__image-wrapper place-card__image-wrapper`}>
-        <Link to={offerUrl}>
+        <Link to={`/offer/` + offer.id}>
           <img className="place-card__image" src={offer.photo[0]} width="260" height="200" alt="Place image"/>
         </Link >
       </div>
@@ -55,7 +54,7 @@ export const OfferCards = ({onOfferCardHover, offer, onOfferCardLeave, articleCl
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={offerUrl}>{offer.title}</Link>
+          <Link to={`/offer/` + offer.id}>{offer.title}</Link>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>

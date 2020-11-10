@@ -5,9 +5,19 @@ import PropTypes from 'prop-types';
 import {ActionCreator} from '../../store/action';
 import {OffersScreen} from '../offers-screen/offers-screen';
 import {CityList} from '../city-list/city-list';
+import {EmptyMain} from "../empty-main/empty-main";
+import {offerProps} from "../../property-types";
+import cn from "classnames";
 
 const MainPageComponent = (props) => {
-  const {onEmailLinkClick, city, getOfferByCity} = props;
+  const {onEmailLinkClick, city, getOfferByCity, offers} = props;
+  const offersExist = offers.length >= 1;
+
+  const mainClass = cn(`page__main page__main--index`, {
+    "page__main--index-empty": offers.length < 1
+  });
+
+
   const handleCityClick = (evt) => {
     evt.preventDefault();
     const selectedCity = evt.target.textContent;
@@ -48,12 +58,12 @@ const MainPageComponent = (props) => {
           </div>
         </div>
       </header>
-      <main className="page__main page__main--index">
+      <main className={mainClass}>
         <CityList currentCity={city} handleCityClick={handleCityClick} />\
         <div className="cities">
           <div className="cities__places-container container">
             <h1 className="visually-hidden">Cities</h1>
-            <OffersScreen/>
+            {offersExist ? <OffersScreen/> : <EmptyMain currentCity={city}/>}
           </div>
         </div>
       </main>
@@ -70,10 +80,12 @@ MainPageComponent.propTypes = {
   onEmailLinkClick: PropTypes.func.isRequired,
   city: PropTypes.string.isRequired,
   getOfferByCity: PropTypes.func.isRequired,
+  offers: PropTypes.arrayOf(offerProps).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   city: state.city,
+  offers: state.offers,
 });
 
 const mapDispatchToProps = (dispatch) => ({

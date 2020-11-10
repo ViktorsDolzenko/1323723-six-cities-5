@@ -1,7 +1,7 @@
 import React from "react";
 import cn from "classnames";
-import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
+import PropTypes from "prop-types";
 import {offerProps} from "../../property-types.js";
 
 export const OfferCards = ({onOfferCardHover, offer, onOfferCardLeave, articleClass, imgClass, isFavoriteScreen}) => {

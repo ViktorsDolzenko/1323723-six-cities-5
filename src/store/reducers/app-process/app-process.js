@@ -1,11 +1,11 @@
-import {offers} from "../mocks/offer";
-import {Cities, FilterTypes} from "../const.js";
-import {extend, getOfferByCity} from "../util";
-import {ActionType} from "./action";
+import {Cities, FilterTypes} from "../../../const";
+import {ActionType} from "../../action";
+import {extend, getOfferByCity} from "../../../util";
+
 const initialState = {
+  offers: [],
+  filter: FilterTypes.POPULAR,
   city: Cities.AMSTERDAM,
-  offers: getOfferByCity(offers, Cities.AMSTERDAM),
-  filter: FilterTypes.POPULAR
 };
 
 export const sortByType = (offer, filter) => {
@@ -25,12 +25,12 @@ export const sortByType = (offer, filter) => {
 };
 
 
-const reducer = (state = initialState, {type, payload}) => {
+const appProcess = (state = initialState, {type, payload}) => {
   switch (type) {
     case ActionType.GET_OFFER_BY_CITY:
       return extend(state, {
         city: payload.city,
-        offers: getOfferByCity(offers, payload.city)
+        offers: getOfferByCity(state.offers, payload.city)
       });
     case ActionType.SORT_OFFER:
       return extend(state, {
@@ -41,4 +41,4 @@ const reducer = (state = initialState, {type, payload}) => {
   return state;
 };
 
-export {reducer};
+export {appProcess};

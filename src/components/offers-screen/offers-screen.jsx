@@ -1,5 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
+import {compose} from "redux";
 import PropTypes from "prop-types";
 import {Map} from "../map/map";
 import {PlacesSorting} from "../places-sorting/places-sorting";
@@ -8,7 +9,6 @@ import {offerProps, iconsCoordinatesPropTypes} from "../../property-types.js";
 import {withActiveOffer} from "../../hocs/withOfferActive/withActiveOffer";
 import {selectIcons} from "../../selectors/selectors";
 import {CitiesCoordinates} from "../../const";
-import {compose} from "redux";
 
 
 const OffersScreenComponent = ({offers, city, activeOffer, onOfferCardHover, onOfferCardLeave, icons}) =>{

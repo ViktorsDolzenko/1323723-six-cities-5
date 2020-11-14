@@ -7,7 +7,7 @@ import {offerProps} from "../../property-types.js";
 export const OfferCards = ({onOfferCardHover, offer, onOfferCardLeave, articleClass, imgClass, isFavoriteScreen}) => {
 
   const bookmarkClass = cn(`place-card__bookmark-button ` + `button`, {
-    'place-card__bookmark-button--active': offer.bookmarks
+    'place-card__bookmark-button--active': offer.is_favorite
   });
 
   return (
@@ -24,14 +24,14 @@ export const OfferCards = ({onOfferCardHover, offer, onOfferCardLeave, articleCl
           onOfferCardLeave();
         }
       }}>
-      {offer.premium &&
+      {offer.is_premium &&
           <div className="place-card__mark">
             <span>Premium</span>
           </div>
       }
       <div className={`${imgClass}__image-wrapper place-card__image-wrapper`}>
         <Link to={`/offer/` + offer.id}>
-          <img className="place-card__image" src={offer.photo[0]} width="260" height="200" alt="Place image"/>
+          <img className="place-card__image" src={offer.preview_image} width="260" height="200" alt="Place image"/>
         </Link >
       </div>
       <div className={`${isFavoriteScreen || ``} place-card__info`}>
@@ -49,7 +49,7 @@ export const OfferCards = ({onOfferCardHover, offer, onOfferCardLeave, articleCl
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: offer.stars}}/>
+            <span style={{width: `${offer.rating * 20}%`}}/>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
@@ -67,7 +67,7 @@ OfferCards.propTypes = {
   articleClass: PropTypes.string,
   isFavoriteScreen: PropTypes.bool,
   imgClass: PropTypes.string,
-  offer: offerProps
+  offer: offerProps.isRequired
 };
 
 

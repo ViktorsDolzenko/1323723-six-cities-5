@@ -1,18 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {createStore} from 'redux';
+import {createStore, applyMiddleware} from 'redux';
+import thunk from "redux-thunk";
 import {Provider} from "react-redux";
-import {reducer} from "./store/reducer";
+import {createApi} from "./api";
+import {reducers} from "./store/root-reducer";
 import {App} from "./components/app/app";
-import {offers} from "./mocks/offer";
 import {reviews} from "./mocks/reviews";
+import {fetchOffers} from "./store/api-actions";
 
-const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const api = createApi();
+
+const store = createStore(reducers, applyMiddleware(thunk.withExtraArgument(api)));
+
+store.dispatch(fetchOffers());
 
 ReactDOM.render(
     <Provider store={store}>
       <App
-        offers={offers}
         reviews={reviews}/>
     </Provider>,
     document.querySelector(`#root`)

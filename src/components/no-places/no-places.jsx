@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-export const EmptyMain = ({currentCity}) => {
+export const NoPlaces = ({currentCity}) => {
   return (
     <>
     <section className="cities__no-places">
@@ -15,6 +15,6 @@ export const EmptyMain = ({currentCity}) => {
   );
 };
 
-EmptyMain.propTypes = {
+NoPlaces.propTypes = {
   currentCity: PropTypes.string.isRequired,
 };

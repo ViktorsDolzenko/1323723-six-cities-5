@@ -2,15 +2,16 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {ActionCreator} from '../../store/action';
+import {getOfferByCity} from '../../store/action';
 import {OffersScreen} from '../offers-screen/offers-screen';
 import {CityList} from '../city-list/city-list';
-import {EmptyMain} from "../empty-main/empty-main";
+import {NoPlaces} from "../no-places/no-places";
 import {offerProps} from "../../property-types";
 import cn from "classnames";
+import {NameSpace} from "../../store/root-reducer";
 
 const MainPageComponent = (props) => {
-  const {onEmailLinkClick, city, getOfferByCity, offers} = props;
+  const {onEmailLinkClick, city, getOfferByCityAction, offers} = props;
   const offersExist = offers.length >= 1;
 
   const mainClass = cn(`page__main page__main--index`, {
@@ -22,7 +23,7 @@ const MainPageComponent = (props) => {
     evt.preventDefault();
     const selectedCity = evt.target.textContent;
     if (selectedCity !== city) {
-      getOfferByCity(selectedCity);
+      getOfferByCityAction(selectedCity);
     }
   };
 
@@ -63,7 +64,8 @@ const MainPageComponent = (props) => {
         <div className="cities">
           <div className="cities__places-container container">
             <h1 className="visually-hidden">Cities</h1>
-            {offersExist ? <OffersScreen/> : <EmptyMain currentCity={city}/>}
+            {offersExist && <OffersScreen/>}
+            {!offersExist && <NoPlaces currentCity={city}/>}
           </div>
         </div>
       </main>
@@ -79,18 +81,21 @@ const MainPageComponent = (props) => {
 MainPageComponent.propTypes = {
   onEmailLinkClick: PropTypes.func.isRequired,
   city: PropTypes.string.isRequired,
-  getOfferByCity: PropTypes.func.isRequired,
+  getOfferByCityAction: PropTypes.func.isRequired,
   offers: PropTypes.arrayOf(offerProps).isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  city: state.city,
-  offers: state.offers,
-});
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    city: state[NameSpace.PROCESS].city,
+    offers: state[NameSpace.DATA].offers,
+  };
+};
 
 const mapDispatchToProps = (dispatch) => ({
-  getOfferByCity(city) {
-    dispatch(ActionCreator.getOfferByCity(city));
+  getOfferByCityAction(city) {
+    dispatch(getOfferByCity(city));
   }
 });
 

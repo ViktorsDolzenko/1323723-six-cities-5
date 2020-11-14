@@ -15,7 +15,7 @@ import {selectIcons} from "../../selectors/selectors";
 const PropertyComponent = (props) => {
   const {offer, reviews, onEmailLinkClick, city, offers, icons, activeOffer, onOfferCardHover, onOfferCardLeave} = props;
 
-  const photoElements = offer.photo.map((image, index) => {
+  const photoElements = offer.images.map((image, index) => {
     return (
       <div className="property__image-wrapper" key={index}>
         <img className="property__image" src={image} alt="Photo studio" />
@@ -23,7 +23,7 @@ const PropertyComponent = (props) => {
     );
   });
 
-  const featureElements = offer.features.map((feature, index) =>{
+  const featureElements = offer.goods.map((feature, index) =>{
     return (
       <li className="property__inside-item" key={index}>
         {feature}
@@ -63,7 +63,7 @@ const PropertyComponent = (props) => {
         </div>
         <div className="property__container container">
           <div className="property__wrapper">
-            {offer.premium
+            {offer.is_premium
               ?
               <div className="property__mark">
                 <span>Premium</span>
@@ -84,7 +84,7 @@ const PropertyComponent = (props) => {
             </div>
             <div className="property__rating rating">
               <div className="property__stars rating__stars">
-                <span style={{width: offer.stars}}/>
+                <span style={{width: `${offer.rating * 20}%`}}/>
                 <span className="visually-hidden">Rating</span>
               </div>
               <span className="property__rating-value rating__value">{offer.rating}</span>
@@ -97,7 +97,7 @@ const PropertyComponent = (props) => {
                 {offer.bedrooms} Bedrooms
               </li>
               <li className="property__feature property__feature--adults">
-                  Max {offer.adultsCount} adults
+                  Max {offer.max_adults} adults
               </li>
             </ul>
             <div className="property__price">
@@ -114,10 +114,10 @@ const PropertyComponent = (props) => {
               <h2 className="property__host-title">Meet the host</h2>
               <div className="property__host-user user">
                 <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                  <img className="property__avatar user__avatar" src={offer.hostAvatar} width="74" height="74" alt="Host avatar"/>
+                  <img className="property__avatar user__avatar" src={offer.host.avatar_url} width="74" height="74" alt="Host avatar"/>
                 </div>
                 <span className="property__user-name">
-                  {offer.hostName}
+                  {offer.host.name}
                 </span>
               </div>
               <div className="property__description">

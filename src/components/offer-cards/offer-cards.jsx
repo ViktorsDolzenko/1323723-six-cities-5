@@ -6,7 +6,7 @@ import {offerProps} from "../../property-types.js";
 
 export const OfferCards = ({onOfferCardHover, offer, onOfferCardLeave, articleClass, imgClass, isFavoriteScreen}) => {
 
-  const bookmarkClass = cn(`place-card__bookmark-button ` + `button`, {
+  const bookmarkClass = cn(`place-card__bookmark-button button `, {
     'place-card__bookmark-button--active': offer.is_favorite
   });
 
@@ -69,5 +69,3 @@ OfferCards.propTypes = {
   imgClass: PropTypes.string,
   offer: offerProps.isRequired
 };
-
-

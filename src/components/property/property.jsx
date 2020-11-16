@@ -6,71 +6,39 @@ import PropTypes from "prop-types";
 import {ReviewForm} from "../review-form/review-form";
 import {ReviewList} from "../review-list/review-list";
 import {Map} from "../map/map";
-import {iconsCoordinatesPropTypes, offerProps} from "../../property-types";
-import {CitiesCoordinates} from "../../const";
+import {iconsPropTypes, offerProps} from "../../property-types";
 import {withActiveOffer} from "../../hocs/withOfferActive/withActiveOffer";
 import {NearPlaces} from "../near-places/nearPlaces";
-import {selectIcons} from "../../selectors/selectors";
+import {getOffersByCities, selectIcons, selectOfferById} from "../../selectors/selectors";
+import {Header} from "../header/header";
+import {Footer} from "../footer/footer";
+
 
 const PropertyComponent = (props) => {
-  const {offer, reviews, onEmailLinkClick, city, offers, icons, activeOffer, onOfferCardHover, onOfferCardLeave} = props;
-
-  const photoElements = offer.images.map((image, index) => {
-    return (
-      <div className="property__image-wrapper" key={index}>
-        <img className="property__image" src={image} alt="Photo studio" />
-      </div>
-    );
-  });
-
-  const featureElements = offer.goods.map((feature, index) =>{
-    return (
-      <li className="property__inside-item" key={index}>
-        {feature}
-      </li>
-    );
-  });
+  const {offer, reviews, onEmailLinkClick, offers, icons, activeOffer, onOfferCardHover, onOfferCardLeave} = props;
 
   return (
     <div className="page">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Link className="header__logo-link" to={`/`}>
-                <img className="header__logo" src="/img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </Link>
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#" onClick={onEmailLinkClick}>
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Header onEmailLinkClick={onEmailLinkClick}/>
+      {offer &&
       <section className="property">
         <div className="property__gallery-container container">
           <div className="property__gallery">
-            {photoElements}
+            {offer.images.map((image, index) => {
+              return (
+                <div className="property__image-wrapper" key={index}>
+                  <img className="property__image" src={image} alt="Photo studio" />
+                </div>
+              );
+            })}
           </div>
         </div>
         <div className="property__container container">
           <div className="property__wrapper">
-            {offer.is_premium
-              ?
-              <div className="property__mark">
-                <span>Premium</span>
-              </div>
-              :
-              null
-            }
+            {offer.is_premium &&
+            <div className="property__mark">
+              <span>Premium</span>
+            </div>}
             <div className="property__name-wrapper">
               <h1 className="property__name">
                 {offer.title}
@@ -107,7 +75,13 @@ const PropertyComponent = (props) => {
             <div className="property__inside">
               <h2 className="property__inside-title">What&apos;s inside</h2>
               <ul className="property__inside-list">
-                {featureElements}
+                {offer.goods.map((feature, index) =>{
+                  return (
+                    <li className="property__inside-item" key={index}>
+                      {feature}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
             <div className="property__host">
@@ -138,35 +112,37 @@ const PropertyComponent = (props) => {
           </div>
         </div>
         <section className="property__map map" style={{padding: `0 15rem`}}>
-          {<Map icons={icons} center={CitiesCoordinates[city]} activeIconId={activeOffer}/>}
+          {<Map icons={icons} activeIconId={activeOffer}/>}
         </section>
       </section>
-      <NearPlaces offer={offer} offers={offers} onOfferCardHover={onOfferCardHover}
-        onOfferCardLeave={onOfferCardLeave}/>
-      <footer className="footer container">
-        <Link className="footer__logo-link" to={`/`}>
-          <img className="footer__logo" src="/img/logo.svg" alt="6 cities logo" width="64" height="33"/>
-        </Link>
-      </footer>
+      }
+      {offer &&
+      <NearPlaces
+        offer={offer}
+        offers={offers}
+        onOfferCardHover={onOfferCardHover}
+        onOfferCardLeave={onOfferCardLeave}
+      />}
+      <Footer/>
     </div>
   );
 };
 
 PropertyComponent.propTypes = {
   onEmailLinkClick: PropTypes.func.isRequired,
-  offer: PropTypes.shape(offerProps.isRequired).isRequired,
+  offer: PropTypes.shape(offerProps.isRequired),
   reviews: PropTypes.array.isRequired,
-  city: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape(offerProps.isRequired)).isRequired,
   activeOffer: PropTypes.number,
   onOfferCardHover: PropTypes.func.isRequired,
   onOfferCardLeave: PropTypes.func.isRequired,
-  icons: PropTypes.arrayOf(iconsCoordinatesPropTypes).isRequired,
+  icons: PropTypes.arrayOf(iconsPropTypes).isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, props) => ({
   city: state.city,
-  offers: state.offers,
+  offers: getOffersByCities(state),
+  offer: selectOfferById(state, props.match.params.id),
   icons: selectIcons(state),
 });
 export const Property = compose(withActiveOffer, connect(mapStateToProps))(PropertyComponent);

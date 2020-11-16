@@ -2,8 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import {OfferCards} from "../offer-cards/offer-cards";
 import {offerProps} from "../../property-types.js";
+import {connect} from "react-redux";
 
-export const FavoritesScreen = (props) =>{
+
+
+export const FavoritesScreenComponent = (props) =>{
   const {offers} = props;
   const bookmarkedOffers = offers.filter((offer) => offer.bookmarks);
   return (
@@ -21,7 +24,12 @@ export const FavoritesScreen = (props) =>{
   );
 };
 
-FavoritesScreen.propTypes = {
+FavoritesScreenComponent.propTypes = {
   offers: PropTypes.arrayOf(offerProps).isRequired
 };
 
+const mapStateToProps = (state) => ({
+  offers: state.DATA.offers,
+});
+
+export const FavoritesScreen = connect(mapStateToProps)(FavoritesScreenComponent);

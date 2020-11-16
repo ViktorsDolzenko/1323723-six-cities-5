@@ -6,6 +6,7 @@ import {Favorites} from "../favorites/favorites";
 import {Login} from "../login/login";
 import {Property} from "../property/property";
 import {offerProps, reviewProps} from "../../property-types";
+import {connect} from "react-redux";
 
 export const App = (props) => {
   const {offers, reviews} = props;
@@ -29,14 +30,12 @@ export const App = (props) => {
           />
         </Route>
         <Route exact path='/offer/:id'
-          render={({match, history}) => {
-            const offer = offers.find((offerCurrent) => offerCurrent.id === Number(match.params.id));
+          render={({history}) => {
             return (
               <Property
-                offer={offer}
-                offers={offers}
-                reviews={reviews}
                 onEmailLinkClick={() => history.push(`/favorites`)}
+                reviews={reviews}
+                {...props}
               />
             );
           }
@@ -51,3 +50,9 @@ App.propTypes = {
   offers: PropTypes.arrayOf(offerProps).isRequired,
   reviews: PropTypes.arrayOf(reviewProps).isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  offers: state.DATA.offers,
+});
+
+export default connect(mapStateToProps)(App);

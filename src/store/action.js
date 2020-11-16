@@ -1,7 +1,8 @@
 export const ActionType = {
   GET_OFFER_BY_CITY: `GET_OFFER`,
   SORT_OFFER: `SORT_OFFER`,
-  LOAD_OFFERS: `LOAD_OOFERS`
+  LOAD_OFFERS: `LOAD_OFFERS`,
+  BOOKMARK_OFFER: `BOOKMARK_OFFER`
 };
 
 export const getOfferByCity = (city) => ({
@@ -11,18 +12,20 @@ export const getOfferByCity = (city) => ({
   }
 });
 
-export const sortOffers = (filter) => ({
+export const sortOffers = (filter, offers) => ({
   type: ActionType.SORT_OFFER,
   payload: {
-    filter
+    filter,
+    offers
   }
 });
 
 export const loadOffers = (offers) => ({
   type: ActionType.LOAD_OFFERS,
-  payload: {
-    offers
-  }
+  payload: offers
 });
 
-
+export const bookmarkOffer = (bookmark) => ({
+  type: ActionType.BOOKMARK_OFFER,
+  payload: bookmark
+});

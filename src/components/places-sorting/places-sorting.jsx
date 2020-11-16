@@ -4,6 +4,7 @@ import {sortOffers} from "../../store/action";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {offerProps} from "../../property-types";
+import {getOffersByCities} from "../../selectors/selectors";
 
 const PlacesSortingComponent = ({offers, filter, sortOffersAction}) => {
   const [opened, setOpened] = useState(false);
@@ -55,8 +56,8 @@ PlacesSortingComponent.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.offers,
-  filter: state.filter
+  offers: getOffersByCities(state),
+  filter: state.PROCESS.filter
 });
 
 const mapDispatchToProps = (dispatch) => ({

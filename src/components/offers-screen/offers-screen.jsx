@@ -5,10 +5,9 @@ import PropTypes from "prop-types";
 import {Map} from "../map/map";
 import {PlacesSorting} from "../places-sorting/places-sorting";
 import {OfferCards} from "../offer-cards/offer-cards";
-import {offerProps, iconsCoordinatesPropTypes} from "../../property-types.js";
+import {offerProps, iconsPropTypes} from "../../property-types.js";
 import {withActiveOffer} from "../../hocs/withOfferActive/withActiveOffer";
-import {selectIcons} from "../../selectors/selectors";
-import {CitiesCoordinates} from "../../const";
+import {getOffersByCities, selectIcons} from "../../selectors/selectors";
 
 
 const OffersScreenComponent = ({offers, city, activeOffer, onOfferCardHover, onOfferCardLeave, icons}) =>{
@@ -33,7 +32,7 @@ const OffersScreenComponent = ({offers, city, activeOffer, onOfferCardHover, onO
       </section>
       <div className="cities__right-section">
         <section className="cities__map map">
-          <Map center={CitiesCoordinates[city]} icons={icons} activeIconId={activeOffer} />
+          {<Map icons={icons} activeIconId={activeOffer} />}
         </section>
       </div>
     </>
@@ -46,13 +45,13 @@ OffersScreenComponent.propTypes = {
   activeOffer: PropTypes.number,
   onOfferCardHover: PropTypes.func.isRequired,
   onOfferCardLeave: PropTypes.func.isRequired,
-  icons: PropTypes.arrayOf(iconsCoordinatesPropTypes).isRequired,
+  icons: PropTypes.arrayOf(iconsPropTypes).isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  city: state.city,
-  offers: state.offers,
-  filter: state.filter,
+  city: state.PROCESS.city,
+  offers: getOffersByCities(state),
+  filter: state.PROCESS.filter,
   icons: selectIcons(state),
 });
 

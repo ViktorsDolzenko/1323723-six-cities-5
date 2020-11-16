@@ -6,7 +6,7 @@ import {Map} from "../map/map";
 import {PlacesSorting} from "../places-sorting/places-sorting";
 import {OfferCards} from "../offer-cards/offer-cards";
 import {offerProps, iconsPropTypes} from "../../property-types.js";
-import {withActiveOffer} from "../../hocs/withOfferActive/withActiveOffer";
+import {withActiveOffer} from "../../hocs/withActiveOffer";
 import {getOffersByCities, selectIcons} from "../../selectors/selectors";
 
 

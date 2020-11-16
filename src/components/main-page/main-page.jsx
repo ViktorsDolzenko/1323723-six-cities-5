@@ -1,19 +1,22 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
+import {compose} from "redux";
+import {withRouter} from "react-router-dom";
+import cn from "classnames";
 import PropTypes from 'prop-types';
+
 import {getOfferByCity} from '../../store/action';
+import {offerProps} from "../../property-types";
+import {getOffersByCities} from "../../selectors/selectors";
+
+import {Header} from "../header/header";
+import {Footer} from "../footer/footer";
 import {OffersScreen} from '../offers-screen/offers-screen';
 import {CityList} from '../city-list/city-list';
 import {NoPlaces} from "../no-places/no-places";
-import {offerProps} from "../../property-types";
-import cn from "classnames";
-import {getOffersByCities} from "../../selectors/selectors";
-import {Header} from "../header/header";
-import {Footer} from "../footer/footer";
 
 const MainPageComponent = (props) => {
-  const {onEmailLinkClick, city, getOfferByCityAction, offers} = props;
+  const {city, getOfferByCityAction, offers, history} = props;
   const offersExist = offers.length >= 1;
 
   const mainClass = cn(`page__main page__main--index`, {
@@ -28,6 +31,8 @@ const MainPageComponent = (props) => {
       getOfferByCityAction(selectedCity);
     }
   };
+
+  const onEmailLinkClick = () => history.push(`/favorites`);
 
   return (
     <div className="page page--gray page--main">
@@ -48,10 +53,11 @@ const MainPageComponent = (props) => {
 };
 
 MainPageComponent.propTypes = {
-  onEmailLinkClick: PropTypes.func.isRequired,
   city: PropTypes.string.isRequired,
   getOfferByCityAction: PropTypes.func.isRequired,
   offers: PropTypes.arrayOf(offerProps).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired}).isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -67,4 +73,4 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export const MainPage = connect(mapStateToProps, mapDispatchToProps)(MainPageComponent);
+export const MainPage = compose(withRouter, connect(mapStateToProps, mapDispatchToProps))(MainPageComponent);

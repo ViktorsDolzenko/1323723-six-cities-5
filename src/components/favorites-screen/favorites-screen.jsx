@@ -4,8 +4,6 @@ import {OfferCards} from "../offer-cards/offer-cards";
 import {offerProps} from "../../property-types.js";
 import {connect} from "react-redux";
 
-
-
 export const FavoritesScreenComponent = (props) =>{
   const {offers} = props;
   const bookmarkedOffers = offers.filter((offer) => offer.bookmarks);

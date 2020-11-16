@@ -5,24 +5,19 @@ import {Favorites} from "../favorites/favorites";
 import {Login} from "../login/login";
 import {Property} from "../property/property";
 
-
-export const App = () => {
-
+export function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/" >
-          <MainPage/>
+        <Route exact path="/" component={MainPage}>
         </Route>
-        <Route exact path="/login">
-          <Login/>
+        <Route exact path="/login" component={Login}>
         </Route>
-        <Route exact path="/favorites">
-          <Favorites/>
+        <Route exact path="/favorites" component={Favorites}>
         </Route>
-        <Route exact path='/offer/:id' component={Property}/>
+        <Route exact path="/offer/:id" component={Property}/>
       </Switch>
     </BrowserRouter>
   );
-};
+}
 

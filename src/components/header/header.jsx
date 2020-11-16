@@ -2,7 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 
-export const Header = ({onEmailLinkClick}) =>{
+export const Header = ({onUserNameClick}) =>{
   return (
     <header className="header">
       <div className="container">
@@ -15,7 +15,7 @@ export const Header = ({onEmailLinkClick}) =>{
           <nav className="header__nav">
             <ul className="header__nav-list">
               <li className="header__nav-item user">
-                <a className="header__nav-link header__nav-link--profile" href="#" onClick={onEmailLinkClick}>
+                <a className="header__nav-link header__nav-link--profile" href="#" onClick={onUserNameClick}>
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>
                   <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
@@ -30,5 +30,5 @@ export const Header = ({onEmailLinkClick}) =>{
 };
 
 Header.propTypes = {
-  onEmailLinkClick: PropTypes.func.isRequired
+  onUserNameClick: PropTypes.func.isRequired
 };

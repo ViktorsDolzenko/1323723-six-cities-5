@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 
 import {withActiveOffer} from "../../hocs/withActiveOffer";
 import {iconsPropTypes, offerProps} from "../../property-types";
-import {getOffersByCities, selectIcons, selectOfferById,} from "../../selectors/selectors";
+import {getOffersByCities, selectIcons, selectOfferById} from "../../selectors/selectors";
 
 import {Header} from "../header/header";
 import {Footer} from "../footer/footer";
@@ -27,11 +27,11 @@ const PropertyComponent = (props) => {
     onOfferCardLeave,
     history,
   } = props;
-  const onEmailLinkClick = () => history.push(`/favorites`);
+  const onUserNameClick = () => history.push(`/favorites`);
 
   return (
     <div className="page">
-      <Header onEmailLinkClick={onEmailLinkClick} />
+      <Header onUserNameClick={onUserNameClick} />
       {!offer && (
         <h1 className="property__name">
           <Loader type="ThreeDots" color="#4873FA" height={200} width={200} />

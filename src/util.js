@@ -4,7 +4,7 @@ export const extend = (a, b) => {
   return Object.assign({}, a, b);
 };
 
-export const offersFilter = (offers, city) => offers.filter((offer) =>
+export const offersByCity = (offers, city) => offers.filter((offer) =>
   offer.city.name === city);
 
 
@@ -21,7 +21,7 @@ const sortOffersByFilterType = (filteredOffers, filterType) => {
 };
 
 export const getOffersByCityAndFilter = (offers, city, filterType) => {
-  const filteredOffersByCity = offersFilter(offers, city);
+  const filteredOffersByCity = offersByCity(offers, city);
   return sortOffersByFilterType(filteredOffersByCity, filterType);
 };
 

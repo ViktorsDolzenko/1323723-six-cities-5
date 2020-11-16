@@ -32,11 +32,11 @@ const MainPageComponent = (props) => {
     }
   };
 
-  const onEmailLinkClick = () => history.push(`/favorites`);
+  const onUserNameClick = () => history.push(`/favorites`);
 
   return (
     <div className="page page--gray page--main">
-      <Header onEmailLinkClick={onEmailLinkClick}/>
+      <Header onUserNameClick={onUserNameClick}/>
       <main className={mainClass}>
         <CityList currentCity={city} handleCityClick={handleCityClick} />\
         <div className="cities">

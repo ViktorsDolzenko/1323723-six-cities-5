@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import leaflet from "leaflet";
 import "leaflet/dist/leaflet.css";
-import {coordinatesPropTypes, iconsCoordinatesPropTypes} from "../../property-types";
+import {iconsPropTypes} from "../../property-types";
 
 const inactiveIcon = leaflet.icon({
   iconUrl: `../img/pin.svg`,
@@ -18,7 +18,12 @@ function getIcon(currentIcon, activeIconId) {
   return activeIconId === currentIcon.id ? activeIcon : inactiveIcon;
 }
 
-const ZOOM_LEVEL = 12;
+const getCityLocation = ([offer]) => {
+  const {latitude, longitude, zoom} = offer.city.location;
+  const city = [latitude, longitude];
+
+  return {city, zoom};
+};
 
 export class Map extends React.PureComponent {
   constructor(props) {
@@ -27,13 +32,14 @@ export class Map extends React.PureComponent {
   }
 
   renderMap() {
+    const {city, zoom} = getCityLocation(this.props.icons);
     this.map = leaflet.map(this.mapRef.current, {
-      center: this.props.center,
-      zoom: ZOOM_LEVEL,
+      center: city,
+      zoom,
       zoomControl: false,
       marker: true
     });
-    this.map.setView(this.props.center, ZOOM_LEVEL);
+    this.map.setView(city, zoom);
 
     leaflet
     .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
@@ -47,8 +53,9 @@ export class Map extends React.PureComponent {
     const {icons, activeIconId} = this.props;
     this.layerGroup = leaflet.layerGroup(icons.map((currentIcon) => {
       const icon = getIcon(currentIcon, activeIconId);
+      const coordinates = [currentIcon.location.latitude, currentIcon.location.longitude];
       return leaflet
-      .marker(currentIcon.coordinates, {icon});
+      .marker(coordinates, {icon});
     }));
     this.layerGroup.addTo(this.map);
   }
@@ -59,7 +66,12 @@ export class Map extends React.PureComponent {
   componentDidUpdate() {
     this.layerGroup.clearLayers();
     this.renderMarkers();
-    this.map.flyTo(this.props.center, ZOOM_LEVEL);
+    const {city, zoom} = getCityLocation(this.props.icons);
+    this.map.flyTo(city, zoom);
+  }
+
+  componentWillUnmount() {
+    this.map.remove();
   }
 
   render() {
@@ -70,7 +82,6 @@ export class Map extends React.PureComponent {
 }
 
 Map.propTypes = {
-  icons: PropTypes.arrayOf(iconsCoordinatesPropTypes).isRequired,
-  center: coordinatesPropTypes,
+  icons: PropTypes.arrayOf(iconsPropTypes).isRequired,
   activeIconId: PropTypes.number,
 };

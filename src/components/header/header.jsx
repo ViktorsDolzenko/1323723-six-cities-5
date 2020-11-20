@@ -37,7 +37,7 @@ export const HeaderComponent = (props) =>{
 };
 
 HeaderComponent.propTypes = {
-
+  authorizationStatus: PropTypes.string.isRequired
 };
 
 

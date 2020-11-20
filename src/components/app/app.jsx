@@ -11,12 +11,7 @@ export function App() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={MainPage}/>
-        <PrivateRoute
-          exact
-          path="/login"
-          render={() =>(
-            <Login/>
-          )}
+        <Route exact path="/login" component={Login}
         />
         <PrivateRoute
           exact

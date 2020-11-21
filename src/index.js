@@ -6,13 +6,21 @@ import {Provider} from "react-redux";
 import {createApi} from "./api";
 import {reducers} from "./store/root-reducer";
 import {App} from "./components/app/app";
-import {fetchOffers} from "./store/api-actions";
+import {checkAuth, fetchOffers} from "./store/api-actions";
+import {requiredAuthorization} from "./store/action";
+import {AuthorizationStatus} from "./const";
+import {composeWithDevTools} from "redux-devtools-extension";
 
-const api = createApi();
+const api = createApi(
+    () => store.dispatch(requiredAuthorization(AuthorizationStatus.NO_AUTH))
+);
 
-const store = createStore(reducers, applyMiddleware(thunk.withExtraArgument(api)));
+const store = createStore(reducers,
+    composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api)))
+);
 
 store.dispatch(fetchOffers());
+store.dispatch(checkAuth());
 
 ReactDOM.render(
     <Provider store={store}>

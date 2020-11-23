@@ -22,6 +22,8 @@ const store = createStore(reducers,
 store.dispatch(fetchOffers());
 store.dispatch(checkAuth());
 
+window.store = store;
+
 ReactDOM.render(
     <Provider store={store}>
       <App/>

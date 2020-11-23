@@ -19,7 +19,8 @@ export const offerProps = PropTypes.shape({
 
 
 export const reviewProps = PropTypes.shape({
-  avatar: PropTypes.string.isRequired,
+  // eslint-disable-next-line
+  avatar_url: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   stars: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,

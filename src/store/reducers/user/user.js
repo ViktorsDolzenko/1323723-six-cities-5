@@ -11,7 +11,7 @@ export const user = (state = initialState, {type, payload}) => {
   switch (type) {
     case ActionType.REQUIRED_AUTHORIZATION:
       return extend(state, {
-        authorizationStatus: payload
+        authorizationStatus: payload,
       });
   }
   return state;

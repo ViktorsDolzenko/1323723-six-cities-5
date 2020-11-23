@@ -15,7 +15,6 @@ import {Map} from "../map/map";
 import {ReviewForm} from "../review-form/review-form";
 import {ReviewList} from "../review-list/review-list";
 import {NearPlaces} from "../near-places/nearPlaces";
-import {reviews} from "../../mocks/reviews";
 
 const PropertyComponent = (props) => {
   const {
@@ -141,7 +140,7 @@ const PropertyComponent = (props) => {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <ReviewList reviews={reviews} />
+                <ReviewList currentOffer={offer.id} />
                 <ReviewForm />
               </section>
             </div>

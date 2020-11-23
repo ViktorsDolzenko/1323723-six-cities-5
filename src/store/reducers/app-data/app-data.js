@@ -3,6 +3,7 @@ import {ActionType} from "../../action";
 
 const initialState = {
   offers: [],
+  comments: [],
 };
 
 export const appData = (state = initialState, {type, payload}) => {
@@ -10,6 +11,10 @@ export const appData = (state = initialState, {type, payload}) => {
     case ActionType.LOAD_OFFERS:
       return extend(state, {
         offers: payload
+      });
+    case ActionType.LOAD_COMMENTS:
+      return extend(state, {
+        comments: payload
       });
   }
   return state;

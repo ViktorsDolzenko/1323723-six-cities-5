@@ -3,7 +3,8 @@ export const ActionType = {
   SORT_OFFER: `SORT_OFFER`,
   LOAD_OFFERS: `LOAD_OFFERS`,
   BOOKMARK_OFFER: `BOOKMARK_OFFER`,
-  REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`
+  REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
+  LOAD_COMMENTS: `LOAD-COMMENTS`,
 };
 
 export const getOfferByCity = (city) => ({
@@ -34,4 +35,9 @@ export const bookmarkOffer = (bookmark) => ({
 export const requiredAuthorization = (status) => ({
   type: ActionType.REQUIRED_AUTHORIZATION,
   payload: status
+});
+
+export const loadComments = (comments) => ({
+  type: ActionType.LOAD_COMMENTS,
+  payload: comments
 });

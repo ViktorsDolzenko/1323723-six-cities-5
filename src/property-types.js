@@ -19,12 +19,16 @@ export const offerProps = PropTypes.shape({
 
 
 export const reviewProps = PropTypes.shape({
-  // eslint-disable-next-line
-  avatar_url: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
-  stars: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired,
+
+  comment: PropTypes.string.isRequired,
+  rating: PropTypes.number.isRequired,
   id: PropTypes.number.isRequired,
+  user: PropTypes.shape({
+    // eslint-disable-next-line
+    avatar_url: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired
+  }),
 });
 
 export const iconsPropTypes = PropTypes.shape({

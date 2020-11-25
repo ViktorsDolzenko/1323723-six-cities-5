@@ -140,8 +140,8 @@ const PropertyComponent = (props) => {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <ReviewList currentOffer={offer.id} />
-                <ReviewForm />
+                <ReviewList offerId={offer.id} />
+                <ReviewForm offerId={offer.id}/>
               </section>
             </div>
           </div>

@@ -11,15 +11,8 @@ export function App() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={MainPage}/>
-        <Route exact path="/login" component={Login}
-        />
-        <PrivateRoute
-          exact
-          path="/favorites"
-          render={() =>(
-            <Favorites/>
-          )}
-        />
+        <Route exact path="/login" component={Login}/>
+        <PrivateRoute exact path="/favorites" render={() =>(<Favorites/>)}/>
         <Route exact path="/offer/:id" component={Property}/>
       </Switch>
     </BrowserRouter>

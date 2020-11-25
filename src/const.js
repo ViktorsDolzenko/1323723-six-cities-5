@@ -18,3 +18,13 @@ export const AuthorizationStatus = {
   AUTH: `AUTH`,
   NO_AUTH: `NO_AUTH`,
 };
+
+export const RATING_TITLES = [
+  `perfect`,
+  `good`,
+  `not bad`,
+  `badly`,
+  `terribly`,
+];
+
+export const RATING_COUNTS = [`5`, `4`, `3`, `2`, `1`];

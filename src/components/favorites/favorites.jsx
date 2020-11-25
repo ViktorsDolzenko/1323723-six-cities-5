@@ -1,8 +1,13 @@
 import React from "react";
+import {connect} from "react-redux";
 import {Link} from "react-router-dom";
+import PropTypes from "prop-types";
 import {FavoritesScreen} from "../favorites-screen/favorites-screen";
 
-export const Favorites = () =>{
+
+export const FavoritesComponent = (props) =>{
+  const {email} = props;
+
   return (
     <div className="page">
       <header className="header">
@@ -19,7 +24,7 @@ export const Favorites = () =>{
                   <a className="header__nav-link header__nav-link--profile" href="#">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                    <span className="header__user-name user__name">{email}</span>
                   </a>
                 </li>
               </ul>
@@ -52,3 +57,13 @@ export const Favorites = () =>{
     </div>
   );
 };
+
+FavoritesComponent.propTypes = {
+  email: PropTypes.string.isRequired
+};
+
+const mapStateToProps = (state) => ({
+  email: state.USER.email,
+});
+
+export const Favorites = connect(mapStateToProps)(FavoritesComponent);

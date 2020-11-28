@@ -19,7 +19,6 @@ import {NearPlaces} from "../near-places/nearPlaces";
 const PropertyComponent = (props) => {
   const {
     offer,
-    offers,
     icons,
     activeOffer,
     onOfferCardHover,

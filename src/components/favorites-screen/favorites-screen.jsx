@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {OfferCards} from "../offer-cards/offer-cards";
+import {OfferCard} from "../offer-cards/offer-cards";
 import {offerProps} from "../../property-types.js";
 import {connect} from "react-redux";
 import {NameSpace} from "../../store/root-reducer";
@@ -11,7 +11,7 @@ export const FavoritesScreenComponent = (props) =>{
     <div className="favorites__places">
       {offers &&
         offers.map((offer) =>
-          <OfferCards
+          <OfferCard
             key={offer.id}
             offer={offer}
             imgClass={`favorites`}

@@ -6,7 +6,7 @@ import {Provider} from "react-redux";
 import {createApi} from "./api";
 import {reducers} from "./store/root-reducer";
 import {App} from "./components/app/app";
-import {checkAuth, fetchOffers} from "./store/api-actions";
+import {checkAuth, fetchFavoriteOffers, fetchOffers} from "./store/api-actions";
 import {setAuthorization} from "./store/action";
 import {AuthorizationStatus} from "./const";
 import {composeWithDevTools} from "redux-devtools-extension";
@@ -20,6 +20,7 @@ const store = createStore(reducers,
 );
 
 store.dispatch(fetchOffers());
+store.dispatch(fetchFavoriteOffers());
 store.dispatch(checkAuth());
 
 window.store = store;

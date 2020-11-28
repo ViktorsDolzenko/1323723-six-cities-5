@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {connect} from "react-redux";
 import cn from "classnames";
 import {Link} from "react-router-dom";
@@ -7,8 +7,8 @@ import {offerProps} from "../../property-types.js";
 import {favoritesHotels} from "../../store/api-actions";
 
 
-export const OfferCardsComponent = ({onOfferCardHover, offer, onOfferCardLeave, articleClass, imgClass, isFavoriteScreen, setBookmarkStatus}) => {
-  const [status, setStatus] = useState(0);
+export const OfferCardComponent = ({onOfferCardHover, offer, onOfferCardLeave, articleClass, imgClass, isFavoriteScreen, setBookmarkStatus}) => {
+  const [status, setStatus] = useState(offer.is_favorite);
 
   const bookmarkHandler = () => {
     setStatus(Number(!status));
@@ -70,13 +70,14 @@ export const OfferCardsComponent = ({onOfferCardHover, offer, onOfferCardLeave, 
     </article>);
 };
 
-OfferCardsComponent.propTypes = {
+OfferCardComponent.propTypes = {
   onOfferCardHover: PropTypes.func,
   onOfferCardLeave: PropTypes.func,
   articleClass: PropTypes.string,
   isFavoriteScreen: PropTypes.bool,
   imgClass: PropTypes.string,
-  offer: offerProps.isRequired
+  offer: offerProps.isRequired,
+  setBookmarkStatus: PropTypes.func.isRequired
 };
 
 
@@ -86,4 +87,4 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export const OfferCards = connect(null, mapDispatchToProps)(OfferCardsComponent);
+export const OfferCard = connect(null, mapDispatchToProps)(OfferCardComponent);

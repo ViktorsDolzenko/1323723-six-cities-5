@@ -4,13 +4,11 @@ import {compose} from "redux";
 import PropTypes from "prop-types";
 import {Map} from "../map/map";
 import {PlacesSorting} from "../places-sorting/places-sorting";
-import {OfferCards} from "../offer-cards/offer-cards";
+import {OfferCard} from "../offer-cards/offer-cards";
 import {offerProps, iconsPropTypes} from "../../property-types.js";
 import {withActiveOffer} from "../../hocs/withActiveOffer";
 import {getOffersByCities, selectIcons} from "../../selectors/selectors";
 import {NameSpace} from "../../store/root-reducer";
-import Loader from "react-loader-spinner";
-
 
 const OffersScreenComponent = ({offers, city, activeOffer, onOfferCardHover, onOfferCardLeave, icons}) =>{
 
@@ -23,7 +21,7 @@ const OffersScreenComponent = ({offers, city, activeOffer, onOfferCardHover, onO
         <div className="cities__places-list places__list tabs__content">
           {offers &&
           offers.map((offer) =>
-            <OfferCards
+            <OfferCard
               key={offer.id}
               offer={offer}
               articleClass={`cities__place-card`}

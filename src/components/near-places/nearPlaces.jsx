@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {OfferCards} from "../offer-cards/offer-cards";
+import {OfferCard} from "../offer-cards/offer-cards";
 import PropTypes from "prop-types";
 import {offerProps} from "../../property-types";
 import {connect} from "react-redux";
@@ -19,7 +19,7 @@ export const NearPlacesComponent = ({offersNearby, onOfferCardHover, onOfferCard
         <h2 className="near-places__title">Other places in the neighbourhood</h2>
         <div className="near-places__list places__list">
           {offersNearby.map((offerInDetails) =>
-            <OfferCards offer={offerInDetails} key={offerInDetails.id} onOfferCardHover={onOfferCardHover}
+            <OfferCard offer={offerInDetails} key={offerInDetails.id} onOfferCardHover={onOfferCardHover}
               onOfferCardLeave={onOfferCardLeave}/>
           )}</div>
       </section>

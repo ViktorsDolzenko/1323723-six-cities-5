@@ -1,4 +1,5 @@
-import React, {useState, useRef} from "react";import {connect} from "react-redux";
+import React, {useState, useRef} from "react";
+import {connect} from "react-redux";
 
 import {RATING_COUNTS, RATING_TITLES} from "../../const";
 import PropTypes from "prop-types";

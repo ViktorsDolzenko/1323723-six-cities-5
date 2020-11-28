@@ -28,7 +28,7 @@ export const appData = (state = initialState, {type, payload}) => {
       });
     case ActionType.LOAD_FAVORITE_OFFERS:
       return extend(state, {
-        favoriteOffers: payload.favoriteOffers
+        favoriteOffers: payload
       });
   }
   return state;

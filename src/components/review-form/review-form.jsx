@@ -1,24 +1,25 @@
-import React, {useEffect, useRef} from "react";import {connect} from "react-redux";
+import React, {useState, useRef} from "react";import {connect} from "react-redux";
 
 import {RATING_COUNTS, RATING_TITLES} from "../../const";
-import {ForwardedInput} from "../reviews-rating/reviews-rating";
 import PropTypes from "prop-types";
 import {newComment} from "../../store/api-actions";
 
 
-export const ReviewFormComponent = (props) =>{
-
-  const ratingRef = useRef(null);
+export const ReviewFormComponent = ({addNewComments, offerId}) =>{
+  const [rating, setRating] = useState(0);
   const commentRef = useRef(null);
 
   const handleFormSubmit = (evt) => {
-    const {getNewComments, offerId} = props;
     evt.preventDefault();
 
-    getNewComments(offerId, {
-      rating: ratingRef.current.value,
+    addNewComments(offerId, {
+      rating,
       comment: commentRef.current.value,
     });
+  };
+
+  const handleRatingChange = (evt) => {
+    setRating(evt.target.value);
   };
 
   return (
@@ -26,14 +27,27 @@ export const ReviewFormComponent = (props) =>{
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {RATING_TITLES.map((title, index) => {
-          const rating = RATING_COUNTS[index];
           return (
-            <ForwardedInput
-              key={title}
-              title={title}
-              rating={rating}
-              ref={ratingRef}
-            />
+            <React.Fragment key={title}>
+              <input
+                className="form__rating-input visually-hidden"
+                name="rating"
+                value={RATING_COUNTS[index]}
+                id={`${RATING_COUNTS[index]}-stars`}
+                type="radio"
+                required={true}
+                onClick={handleRatingChange}
+              />
+              <label
+                htmlFor={`${RATING_COUNTS[index]}-stars`}
+                className="reviews__rating-label form__rating-label"
+                title={title}
+              >
+                <svg className="form__star-image" width="37" height="33">
+                  <use xlinkHref="#icon-star" />
+                </svg>
+              </label>
+            </React.Fragment>
           );
         })}
       </div>
@@ -56,11 +70,12 @@ export const ReviewFormComponent = (props) =>{
 };
 
 ReviewFormComponent.propTypes = {
-  getNewComments: PropTypes.func.isRequired,
+  addNewComments: PropTypes.func.isRequired,
+  offerId: PropTypes.number.isRequired
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  getNewComments(offerId, commentData) {
+  addNewComments(offerId, commentData) {
     dispatch(newComment(offerId, commentData));
   }
 });

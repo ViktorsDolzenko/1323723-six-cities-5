@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import {FavoritesScreen} from "../favorites-screen/favorites-screen";
+import {NameSpace} from "../../store/root-reducer";
 
 
 export const FavoritesComponent = (props) =>{
@@ -63,7 +64,7 @@ FavoritesComponent.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  email: state.USER.email,
+  email: state[NameSpace.USER].email,
 });
 
 export const Favorites = connect(mapStateToProps)(FavoritesComponent);

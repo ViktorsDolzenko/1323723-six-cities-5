@@ -152,8 +152,7 @@ const PropertyComponent = (props) => {
       )}
       {offer && (
         <NearPlaces
-          offer={offer}
-          offers={offers}
+          offerId={offer.id}
           onOfferCardHover={onOfferCardHover}
           onOfferCardLeave={onOfferCardLeave}
         />

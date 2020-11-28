@@ -5,6 +5,7 @@ import {ReviewItem} from "../review-item/review-item";
 import {reviewProps} from "../../property-types";
 import {fetchComments} from "../../store/api-actions";
 import Loader from "react-loader-spinner";
+import {NameSpace} from "../../store/root-reducer";
 
 
 export const ReviewListComponent = (props) => {
@@ -43,7 +44,7 @@ ReviewListComponent.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  reviews: state.DATA.comments,
+  reviews: state[NameSpace.DATA].comments,
 });
 
 const mapDispatchToProps = (dispatch) => ({

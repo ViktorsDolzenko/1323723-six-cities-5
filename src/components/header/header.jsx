@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import {AuthorizationStatus} from "../../const";
 import {connect} from "react-redux";
+import {NameSpace} from "../../store/root-reducer";
 
 export const HeaderComponent = (props) =>{
   const {authorizationStatus, email} = props;
@@ -43,8 +44,8 @@ HeaderComponent.propTypes = {
 
 
 const mapStateTopProps = (state) => ({
-  authorizationStatus: state.USER.authorizationStatus,
-  email: state.USER.email
+  authorizationStatus: state[NameSpace.USER].authorizationStatus,
+  email: state[NameSpace.USER].email
 });
 
 export const Header = connect(mapStateTopProps)(HeaderComponent);

@@ -1,4 +1,11 @@
-import {loadComments, loadOffers, setAuthorization} from "./action";
+import {
+  loadComments,
+  setFavoritesOffers,
+  loadOffers,
+  loadOffersNearby,
+  setAuthorization,
+  loadFavoriteOffers,
+} from "./action";
 import {AuthorizationStatus} from "../const";
 
 export const fetchOffers = () => (dispatch, _getState, api) => (
@@ -28,8 +35,25 @@ export const fetchComments = (id) => (dispatch, _getState, api) => (
     })
 );
 
-export const newComment = (id, {review: comment, rating}) => (dispatch, _getState, api) => (
-  api.post(`/comments/${id}`, {comment, rating})
-    .then(() => dispatch())
+export const newComment = (id, comment, rating) => (dispatch, _getState, api) => (
+  api.post(`/comments/${id}`, comment, rating)
+    .then(({data}) => dispatch(loadComments(data)))
 );
 
+export const fetchHotelsNearby = (id) => (dispatch, _getState, api) => (
+  api.get(`/hotels/${id}/nearby`)
+    .then(({data}) => dispatch(loadOffersNearby(data)))
+);
+
+export const fetchFavoriteOffers = () => (dispatch, _getState, api) => (
+  api.get(`/favorite`)
+    .then(({data}) => dispatch(loadFavoriteOffers(data)))
+);
+
+
+export const favoritesHotels = (id, status) => (dispatch, _getState, api) => {
+  api.post(`/favorite/${id}/${status}`)
+        .then(({data}) => {
+          dispatch(setFavoritesOffers(data));
+        });
+};

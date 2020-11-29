@@ -25,3 +25,16 @@ export const getOffersByCityAndFilter = (offers, city, filterType) => {
   return sortOffersByFilterType(filteredOffersByCity, filterType);
 };
 
+
+const findIndex = (array, item) => {
+  return array.findIndex((it) => it.id === item.id);
+};
+
+export const replaceItem = (array, item) => {
+  const itemIndex = findIndex(array, item);
+  return [
+    ...array.slice(0, itemIndex),
+    item,
+    ...array.slice(itemIndex + 1)
+  ];
+};

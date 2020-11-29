@@ -1,9 +1,10 @@
 import {createSelector} from "reselect";
 import {getOffersByCityAndFilter} from "../util";
+import {NameSpace} from "../store/root-reducer";
 
-const allOffers = (state) => state.DATA.offers;
-const getCurrentCity = (state) => state.PROCESS.city;
-const getCurrentFilter = (state) => state.PROCESS.filter;
+const allOffers = (state) => state[NameSpace.DATA].offers;
+const getCurrentCity = (state) => state[NameSpace.PROCESS].city;
+const getCurrentFilter = (state) => state[NameSpace.PROCESS].filter;
 
 export const selectIcons = (state) => {
   return getOffersByCities(state).map(({id, location, city})=>{

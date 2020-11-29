@@ -14,6 +14,7 @@ import {Footer} from "../footer/footer";
 import {OffersScreen} from '../offers-screen/offers-screen';
 import {CityList} from '../city-list/city-list';
 import {NoPlaces} from "../no-places/no-places";
+import {NameSpace} from "../../store/root-reducer";
 
 const MainPageComponent = (props) => {
   const {city, getOfferByCityAction, offers, history} = props;
@@ -62,7 +63,7 @@ MainPageComponent.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    city: state.PROCESS.city,
+    city: state[NameSpace.PROCESS].city,
     offers: getOffersByCities(state),
   };
 };

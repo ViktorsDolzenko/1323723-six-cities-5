@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {offerProps} from "../../property-types";
 import {getOffersByCities} from "../../selectors/selectors";
+import {NameSpace} from "../../store/root-reducer";
 
 const PlacesSortingComponent = ({offers, filter, sortOffersAction}) => {
   const [opened, setOpened] = useState(false);
@@ -57,7 +58,7 @@ PlacesSortingComponent.propTypes = {
 
 const mapStateToProps = (state) => ({
   offers: getOffersByCities(state),
-  filter: state.PROCESS.filter
+  filter: state[NameSpace.PROCESS].filter
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -4,11 +4,11 @@ import {compose} from "redux";
 import PropTypes from "prop-types";
 import {Map} from "../map/map";
 import {PlacesSorting} from "../places-sorting/places-sorting";
-import {OfferCards} from "../offer-cards/offer-cards";
+import {OfferCard} from "../offer-cards/offer-cards";
 import {offerProps, iconsPropTypes} from "../../property-types.js";
 import {withActiveOffer} from "../../hocs/withActiveOffer";
 import {getOffersByCities, selectIcons} from "../../selectors/selectors";
-
+import {NameSpace} from "../../store/root-reducer";
 
 const OffersScreenComponent = ({offers, city, activeOffer, onOfferCardHover, onOfferCardLeave, icons}) =>{
 
@@ -19,15 +19,17 @@ const OffersScreenComponent = ({offers, city, activeOffer, onOfferCardHover, onO
         <b className="places__found">{offers.length} places to stay in {city}</b>
         <PlacesSorting/>
         <div className="cities__places-list places__list tabs__content">
-          {offers.map((offer) =>
-            <OfferCards
+          {offers &&
+          offers.map((offer) =>
+            <OfferCard
               key={offer.id}
               offer={offer}
               articleClass={`cities__place-card`}
               imgClass={`cities`}
               onOfferCardHover={onOfferCardHover}
               onOfferCardLeave={onOfferCardLeave}/>
-          )}
+          )
+          }
         </div>
       </section>
       <div className="cities__right-section">
@@ -49,9 +51,9 @@ OffersScreenComponent.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  city: state.PROCESS.city,
+  city: state[NameSpace.PROCESS].city,
   offers: getOffersByCities(state),
-  filter: state.PROCESS.filter,
+  filter: state[NameSpace.PROCESS].filter,
   icons: selectIcons(state),
 });
 

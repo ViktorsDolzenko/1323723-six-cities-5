@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов» [![Build status][travis-image]][travis-url]
 
 * Студент: [Dolzenko Viktors](https://up.htmlacademy.ru/react/5/user/1323723).
-* Наставник: [Вадим Шевяков](https://htmlacademy.ru/profile/id574589).
+* Наставник: [Раиль Сахавиев](https://htmlacademy.ru/profile/id13318919).
 
 ---
 

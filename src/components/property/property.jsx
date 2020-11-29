@@ -15,12 +15,10 @@ import {Map} from "../map/map";
 import {ReviewForm} from "../review-form/review-form";
 import {ReviewList} from "../review-list/review-list";
 import {NearPlaces} from "../near-places/nearPlaces";
-import {reviews} from "../../mocks/reviews";
 
 const PropertyComponent = (props) => {
   const {
     offer,
-    offers,
     icons,
     activeOffer,
     onOfferCardHover,
@@ -141,8 +139,8 @@ const PropertyComponent = (props) => {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <ReviewList reviews={reviews} />
-                <ReviewForm />
+                <ReviewList offerId={offer.id} />
+                <ReviewForm offerId={offer.id}/>
               </section>
             </div>
           </div>
@@ -153,8 +151,7 @@ const PropertyComponent = (props) => {
       )}
       {offer && (
         <NearPlaces
-          offer={offer}
-          offers={offers}
+          offerId={offer.id}
           onOfferCardHover={onOfferCardHover}
           onOfferCardLeave={onOfferCardLeave}
         />

@@ -3,6 +3,7 @@ import {Route, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {AuthorizationStatus} from "../../const";
+import {NameSpace} from "../../store/root-reducer";
 
 
 const PrivateRouteComponent = (props) => {
@@ -30,7 +31,7 @@ PrivateRouteComponent.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  authorizationStatus: state.USER.authorizationStatus,
+  authorizationStatus: state[NameSpace.USER].authorizationStatus,
 });
 
 export const PrivateRoute = connect(mapStateToProps)(PrivateRouteComponent);

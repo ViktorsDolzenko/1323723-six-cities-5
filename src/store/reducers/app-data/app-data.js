@@ -1,4 +1,4 @@
-import {extend, removeItem, replaceItem} from "../../../util";
+import {extend, replaceItem} from "../../../util";
 import {ActionType} from "../../action";
 
 const initialState = {

@@ -197,6 +197,7 @@ PropertyComponent.propTypes = {
     push: PropTypes.func.isRequired,
   }).isRequired,
   setBookmarkStatus: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state, props) => ({

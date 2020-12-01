@@ -49,8 +49,7 @@ export const removeItem = (array, item) => {
   ];
 };
 
-
-export const mockHost = {
+export const mockHotelHost = {
   // eslint-disable-next-line camelcase
   avatar_url: `https://assets.htmlacademy.ru/intensives/javascript-3/avatar/1.jpg`,
   id: 1,

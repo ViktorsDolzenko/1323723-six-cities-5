@@ -14,7 +14,8 @@
     "@babel/core": "7.8.7",
     "@babel/preset-env": "7.8.7",
     "@babel/preset-react": "7.8.3",
-    "@jest/environment": "^26.6.2",
+    "@jest/environment": "26.6.2",
+    "@jest/globals": "26.6.2",
     "babel-loader": "8.1.0",
     "css-loader": "5.0.0",
     "enzyme": "3.11.0",
@@ -36,7 +37,6 @@
     "node": "10"
   },
   "dependencies": {
-    "@jest/globals": "^26.6.2",
     "axios": "0.19.2",
     "classnames": "2.2.6",
     "leaflet": "1.7.1",
@@ -55,7 +55,6 @@
   },
   "jest": {
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
       "\\.(css|less)$": "identity-obj-proxy"
     }
   }

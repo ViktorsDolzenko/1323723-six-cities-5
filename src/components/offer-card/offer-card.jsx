@@ -84,7 +84,7 @@ OfferCardComponent.propTypes = {
 const mapDispatchToProps = (dispatch) => ({
   setBookmarkStatus(id, status) {
     dispatch(favoritesHotels(id, status));
-  }
+  },
 });
 
 export const OfferCard = connect(null, mapDispatchToProps)(OfferCardComponent);

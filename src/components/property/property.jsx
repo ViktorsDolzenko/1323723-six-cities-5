@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {connect} from "react-redux";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
@@ -15,6 +15,10 @@ import {Map} from "../map/map";
 import {ReviewForm} from "../review-form/review-form";
 import {ReviewList} from "../review-list/review-list";
 import {NearPlaces} from "../near-places/nearPlaces";
+import cn from "classnames";
+import {favoritesHotels} from "../../store/api-actions";
+import {AuthorizationStatus} from "../../const";
+import {NameSpace} from "../../store/root-reducer";
 
 const PropertyComponent = (props) => {
   const {
@@ -24,8 +28,26 @@ const PropertyComponent = (props) => {
     onOfferCardHover,
     onOfferCardLeave,
     history,
+    setBookmarkStatus,
+    authorizationStatus
   } = props;
+
+  const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
   const onUserNameClick = () => history.push(`/favorites`);
+
+  const [status, setStatus] = useState(0);
+  useEffect(() => setStatus(offer.is_favorite)
+      , [offer]);
+
+  const bookmarkHandler = () => {
+    setStatus(Number(!status));
+    setBookmarkStatus(offer.id, Number(!status));
+  };
+
+  const bookmarkClass = cn({
+    'property__bookmark-icon--active': status}, {
+    'property__bookmark-icon': !status
+  });
 
   return (
     <div className="page">
@@ -64,9 +86,10 @@ const PropertyComponent = (props) => {
                 <button
                   className="property__bookmark-button button"
                   type="button"
+                  onClick={bookmarkHandler}
                 >
                   <svg
-                    className="property__bookmark-icon"
+                    className={bookmarkClass}
                     width="31"
                     height="33"
                   >
@@ -140,7 +163,9 @@ const PropertyComponent = (props) => {
               </div>
               <section className="property__reviews reviews">
                 <ReviewList offerId={offer.id} />
-                <ReviewForm offerId={offer.id}/>
+                {isAuth ?
+                  <ReviewForm offerId={offer.id}/>
+                  : ``}
               </section>
             </div>
           </div>
@@ -171,6 +196,8 @@ PropertyComponent.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  setBookmarkStatus: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state, props) => ({
@@ -178,9 +205,16 @@ const mapStateToProps = (state, props) => ({
   offers: getOffersByCities(state),
   offer: selectOfferById(state, props.match.params.id),
   icons: selectIcons(state),
+  authorizationStatus: state[NameSpace.USER].authorizationStatus,
 });
+
+const mapDispatchToProps = (dispatch) => ({
+  setBookmarkStatus(id, status) {
+    dispatch(favoritesHotels(id, status));
+  }
+});
+
 export const Property = compose(
     withRouter,
     withActiveOffer,
-    connect(mapStateToProps)
-)(PropertyComponent);
+    connect(mapStateToProps, mapDispatchToProps))(PropertyComponent);

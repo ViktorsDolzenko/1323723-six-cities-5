@@ -7,7 +7,7 @@ import {offerProps} from "../../property-types";
 import {getOffersByCities} from "../../selectors/selectors";
 import {NameSpace} from "../../store/root-reducer";
 
-const PlacesSortingComponent = ({offers, filter, sortOffersAction}) => {
+export const PlacesSortingComponent = ({offers, filter, sortOffersAction}) => {
   const [opened, setOpened] = useState(false);
   const toggleSortingPopup = () => {
     setOpened(!opened);

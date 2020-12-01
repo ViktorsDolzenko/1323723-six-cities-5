@@ -7,11 +7,11 @@ const initialState = {
   city: Cities.AMSTERDAM,
 };
 
-const appProcess = (state = initialState, {type, payload}) => {
+export const appProcess = (state = initialState, {type, payload}) => {
   switch (type) {
     case ActionType.GET_OFFER_BY_CITY:
       return extend(state, {
-        city: payload.city,
+        city: payload,
       });
     case ActionType.SORT_OFFER:
       return extend(state, {
@@ -20,5 +20,3 @@ const appProcess = (state = initialState, {type, payload}) => {
   }
   return state;
 };
-
-export {appProcess};

@@ -1,4 +1,4 @@
-import {extend, replaceItem} from "../../../util";
+import {extend, removeItem, replaceItem} from "../../../util";
 import {ActionType} from "../../action";
 
 const initialState = {
@@ -25,6 +25,10 @@ export const appData = (state = initialState, {type, payload}) => {
     case ActionType.SET_FAVORITES_OFFERS:
       return extend(state, {
         offers: replaceItem(state.offers, payload)
+      });
+    case ActionType.REMOVE_FAVORITE_OFFERS:
+      return extend(state, {
+        favoriteOffers: removeItem(state.favoriteOffers, payload)
       });
     case ActionType.LOAD_FAVORITE_OFFERS:
       return extend(state, {

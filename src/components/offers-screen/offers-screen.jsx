@@ -4,7 +4,7 @@ import {compose} from "redux";
 import PropTypes from "prop-types";
 import {Map} from "../map/map";
 import {PlacesSorting} from "../places-sorting/places-sorting";
-import {OfferCard} from "../offer-cards/offer-cards";
+import {OfferCard} from "../offer-card/offer-card";
 import {offerProps, iconsPropTypes} from "../../property-types.js";
 import {withActiveOffer} from "../../hocs/withActiveOffer";
 import {getOffersByCities, selectIcons} from "../../selectors/selectors";

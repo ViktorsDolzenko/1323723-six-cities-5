@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component rendered correctly -> Footer 1`] = `
+<footer
+  className="footer container"
+>
+  <Link
+    className="footer__logo-link"
+    to="/"
+  >
+    <img
+      alt="6 cities logo"
+      className="footer__logo"
+      height="33"
+      src="/img/logo.svg"
+      width="64"
+    />
+  </Link>
+</footer>
+`;

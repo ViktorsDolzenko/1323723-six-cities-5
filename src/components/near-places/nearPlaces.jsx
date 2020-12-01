@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {OfferCard} from "../offer-cards/offer-cards";
+import {OfferCard} from "../offer-card/offer-card";
 import PropTypes from "prop-types";
 import {offerProps} from "../../property-types";
 import {connect} from "react-redux";

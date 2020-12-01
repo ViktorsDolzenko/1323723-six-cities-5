@@ -6,7 +6,7 @@ import {Provider} from "react-redux";
 import {createApi} from "./api";
 import {reducers} from "./store/root-reducer";
 import {App} from "./components/app/app";
-import {checkAuth, fetchFavoriteOffers, fetchOffers} from "./store/api-actions";
+import {checkAuth, fetchOffers} from "./store/api-actions";
 import {setAuthorization} from "./store/action";
 import {AuthorizationStatus} from "./const";
 import {composeWithDevTools} from "redux-devtools-extension";
@@ -19,16 +19,18 @@ const store = createStore(reducers,
     composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api)))
 );
 
-store.dispatch(fetchOffers());
-store.dispatch(fetchFavoriteOffers());
-store.dispatch(checkAuth());
 
 window.store = store;
 
-ReactDOM.render(
-    <Provider store={store}>
-      <App/>
-    </Provider>,
-    document.querySelector(`#root`)
-);
-
+Promise.all([
+  store.dispatch(fetchOffers()),
+  store.dispatch(checkAuth())
+])
+  .then(() => {
+    ReactDOM.render(
+        <Provider store={store}>
+          <App/>
+        </Provider>,
+        document.querySelector(`#root`)
+    );
+  });

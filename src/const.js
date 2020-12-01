@@ -28,3 +28,7 @@ export const RATING_TITLES = [
 ];
 
 export const RATING_COUNTS = [`5`, `4`, `3`, `2`, `1`];
+
+export const INITIAL_SORTING_TYPE = FilterTypes.POPULAR;
+
+export const defaultAvatar = `/img/avatar.svg`;

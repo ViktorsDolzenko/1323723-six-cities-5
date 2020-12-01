@@ -1,4 +1,4 @@
-import {userProcess} from "./userProcess";
+import {userProcess} from "../user-process/user-process";
 import {ActionType} from "../../action";
 import {AuthorizationStatus} from "../../../const";
 

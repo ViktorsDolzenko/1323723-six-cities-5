@@ -11,9 +11,7 @@ export const ActionType = {
 
 export const getOfferByCity = (city) => ({
   type: ActionType.GET_OFFER_BY_CITY,
-  payload: {
-    city,
-  }
+  payload: city,
 });
 
 export const sortOffers = (filter, offers) => ({
@@ -33,6 +31,7 @@ export const setFavoritesOffers = (offers) => ({
   type: ActionType.SET_FAVORITES_OFFERS,
   payload: offers
 });
+
 
 export const loadFavoriteOffers = (favoriteOffers) => ({
   type: ActionType.LOAD_FAVORITE_OFFERS,

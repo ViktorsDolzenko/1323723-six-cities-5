@@ -10,7 +10,9 @@ it(`Should ReviewForm render correctly`, () => {
   const tree = renderer
     .create(
         <Provider store={store}>
-          <ReviewForm/>
+          <ReviewForm
+            offerId={1}
+          />
         </Provider>
     )
     .toJSON();

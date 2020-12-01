@@ -2,20 +2,19 @@ import React from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
 import {reviewProps} from "../../property-types";
+import {defaultAvatar} from "../../const";
 
 export class ReviewItem extends React.PureComponent {
   constructor(props) {
     super(props);
   }
-
   render() {
     const {review} = this.props;
-
     return (
       <li className="reviews__item" key={review.id}>
         <div className="reviews__user user">
           <div className="reviews__avatar-wrapper user__avatar-wrapper">
-            <img className="reviews__avatar user__avatar" src={review.user.avatar_url} width="54" height="54" alt="Reviews avatar"/>
+            <img className="reviews__avatar user__avatar" src={review.user.avatar_url ? review.user.avatar_url : defaultAvatar} width="54" height="54" alt="Reviews avatar"/>
           </div>
           <span className="reviews__user-name">
             {review.user.name}

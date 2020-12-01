@@ -7,7 +7,7 @@ const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
 };
 
-const userProcess = (state = initialState, {type, payload}) => {
+export const userProcess = (state = initialState, {type, payload}) => {
   switch (type) {
     case ActionType.SET_AUTHORIZATION:
       return extend(state, {
@@ -18,4 +18,3 @@ const userProcess = (state = initialState, {type, payload}) => {
   return state;
 };
 
-export {userProcess};

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SortingOptions render should render with popunlar 1`] = `
+exports[`SortingOptions render should render with popular 1`] = `
 <form
   action="#"
   className="places__sorting"

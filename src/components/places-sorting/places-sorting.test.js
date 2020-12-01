@@ -1,46 +1,24 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import {PlacesSorting} from "./places-sorting";
+import React from "react";
+import renderer from "react-test-renderer";
 import {FilterTypes} from "../../const";
-import {Provider} from "react-redux";
+import {PlacesSorting} from "./places-sorting";
 import {BrowserRouter} from "react-router-dom";
+import {Provider} from "react-redux";
 import {createStore} from "redux";
 import {reducers} from "../../store/root-reducer";
 
 const store = createStore(reducers);
-const props = {
-  filter: FilterTypes.POPULAR,
-  opened: true,
-  onToggleClick: () => {},
-  onFilterChange: () => {},
-};
-
-describe(`CitiesFilter render correctly`, () => {
-  it(`CitiesFilter toggle opened`, () => {
-
-    props.opened = true;
-
+describe(`SortingOptions render`, () => {
+  it(`should render with popular`, () => {
     const tree = renderer
       .create(
           <Provider store={store}>
             <BrowserRouter>
-              <PlacesSorting {...props} />
-            </BrowserRouter>
-          </Provider>
-      ).toJSON();
-
-    expect(tree).toMatchSnapshot();
-  });
-
-  it(`CitiesFilter toggle closed`, () => {
-
-    props.opened = false;
-
-    const tree = renderer
-      .create(
-          <Provider store={store}>
-            <BrowserRouter>
-              <PlacesSorting {...props} />
+              <PlacesSorting
+                sortOption={FilterTypes.POPULAR}
+                handleFilterClick={() => {}}
+                toggleSortingPopup={() => {}}
+              />
             </BrowserRouter>
           </Provider>
       ).toJSON();

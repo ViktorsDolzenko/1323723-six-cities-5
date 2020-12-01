@@ -17,6 +17,8 @@ import {ReviewList} from "../review-list/review-list";
 import {NearPlaces} from "../near-places/nearPlaces";
 import cn from "classnames";
 import {favoritesHotels} from "../../store/api-actions";
+import {AuthorizationStatus} from "../../const";
+import {NameSpace} from "../../store/root-reducer";
 
 const PropertyComponent = (props) => {
   const {
@@ -27,8 +29,10 @@ const PropertyComponent = (props) => {
     onOfferCardLeave,
     history,
     setBookmarkStatus,
+    authorizationStatus
   } = props;
 
+  const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
   const onUserNameClick = () => history.push(`/favorites`);
 
   const [status, setStatus] = useState(0);
@@ -159,7 +163,9 @@ const PropertyComponent = (props) => {
               </div>
               <section className="property__reviews reviews">
                 <ReviewList offerId={offer.id} />
-                <ReviewForm offerId={offer.id}/>
+                {isAuth ?
+                  <ReviewForm offerId={offer.id}/>
+                  : ``}
               </section>
             </div>
           </div>
@@ -198,6 +204,7 @@ const mapStateToProps = (state, props) => ({
   offers: getOffersByCities(state),
   offer: selectOfferById(state, props.match.params.id),
   icons: selectIcons(state),
+  authorizationStatus: state[NameSpace.USER].authorizationStatus,
 });
 
 const mapDispatchToProps = (dispatch) => ({

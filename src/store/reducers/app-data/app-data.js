@@ -26,10 +26,6 @@ export const appData = (state = initialState, {type, payload}) => {
       return extend(state, {
         offers: replaceItem(state.offers, payload)
       });
-    case ActionType.REMOVE_FAVORITE_OFFERS:
-      return extend(state, {
-        favoriteOffers: removeItem(state.favoriteOffers, payload)
-      });
     case ActionType.LOAD_FAVORITE_OFFERS:
       return extend(state, {
         favoriteOffers: payload

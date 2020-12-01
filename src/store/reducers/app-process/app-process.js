@@ -11,7 +11,7 @@ export const appProcess = (state = initialState, {type, payload}) => {
   switch (type) {
     case ActionType.GET_OFFER_BY_CITY:
       return extend(state, {
-        city: payload.city,
+        city: payload,
       });
     case ActionType.SORT_OFFER:
       return extend(state, {

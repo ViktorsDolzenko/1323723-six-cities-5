@@ -19,13 +19,12 @@ describe(`cityList test`, () => {
     const wrapper = mount(
         <Provider store={store}>
           <BrowserRouter>
-            <CityList currentCity={mockCity} handleCityClick={handleCityClick}></CityList>
+            <CityList currentCity={mockCity} handleCityClick={handleCityClick}/>
           </BrowserRouter>
         </Provider>
     );
 
-    wrapper.find(`.locations__item-link`).at(1).onsimulate(`click`);
-
+    wrapper.find(`.locations__item-link`).at(1).simulate(`click`);
     expect(handleCityClick).toHaveBeenCalledTimes(1);
   });
 });

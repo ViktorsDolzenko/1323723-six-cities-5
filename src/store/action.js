@@ -11,7 +11,7 @@ export const ActionType = {
 
 export const getOfferByCity = (city) => ({
   type: ActionType.GET_OFFER_BY_CITY,
-  payload: city,
+  payload: city
 });
 
 export const sortOffers = (filter, offers) => ({

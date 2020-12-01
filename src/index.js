@@ -19,12 +19,10 @@ const store = createStore(reducers,
     composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api)))
 );
 
-
-window.store = store;
+store.dispatch(checkAuth());
 
 Promise.all([
   store.dispatch(fetchOffers()),
-  store.dispatch(checkAuth())
 ])
   .then(() => {
     ReactDOM.render(

@@ -8,7 +8,8 @@ import {PrivateRoute} from "../private-route/private-route";
 
 export function App() {
   return (
-    <BrowserRouter>
+    // eslint-disable-next-line no-undef
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Switch>
         <Route exact path="/" component={MainPage}/>
         <Route exact path="/login" component={Login}/>

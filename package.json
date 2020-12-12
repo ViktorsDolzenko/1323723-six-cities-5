@@ -11,7 +11,7 @@
     "start": "webpack-dev-server",
     "test.jest": "jest",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d public"
 
   },
   "devDependencies": {

@@ -5,12 +5,12 @@ import "leaflet/dist/leaflet.css";
 import {iconsPropTypes} from "../../property-types";
 
 const inactiveIcon = leaflet.icon({
-  iconUrl: `../img/pin.svg`,
+  iconUrl: `img/pin.svg`,
   iconSize: [30, 30]
 });
 
 const activeIcon = leaflet.icon({
-  iconUrl: `../img/pin-active.svg`,
+  iconUrl: `img/pin-active.svg`,
   iconSize: [30, 30]
 });
 

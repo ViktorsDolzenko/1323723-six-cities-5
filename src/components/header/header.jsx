@@ -5,10 +5,15 @@ import {AuthorizationStatus} from "../../const";
 import {connect} from "react-redux";
 import {NameSpace} from "../../store/root-reducer";
 
-export const HeaderComponent = (props) =>{
+export const HeaderComponent = (props) => {
   const {authorizationStatus, email} = props;
   const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
   const link = isAuth ? `/favorites` : `/login`;
+
+  const logoutHandler = () => {
+    logout();
+  };
+
   return (
     <header className="header">
       <div className="container">
@@ -28,6 +33,9 @@ export const HeaderComponent = (props) =>{
                     ? <span className="header__user-name user__name">{email}</span>
                     : <span className="header__login">Sign in</span>}
                 </Link>
+                {isAuth
+                  ? <button className="header__login button sign-out" onClick={logoutHandler} >Sign out</button>
+                  : null}
               </li>
             </ul>
           </nav>
@@ -47,5 +55,6 @@ const mapStateTopProps = (state) => ({
   authorizationStatus: state[NameSpace.USER].authorizationStatus,
   email: state[NameSpace.USER].email
 });
+
 
 export const Header = connect(mapStateTopProps)(HeaderComponent);

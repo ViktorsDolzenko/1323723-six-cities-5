@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import {login} from "../../store/api-actions";
 import {Header} from "../header/header";
 import {NameSpace} from "../../store/root-reducer";
+import {AuthorizationStatus} from "../../const";
 
 class LoginComponent extends React.PureComponent {
 
@@ -25,6 +26,14 @@ class LoginComponent extends React.PureComponent {
   }
 
   render() {
+    const {currentCity, authorizationStatus} = this.props;
+
+    if (authorizationStatus === AuthorizationStatus.AUTH) {
+      this.props.history.push(`/`);
+      history.go(0);
+    }
+
+
     return (
       <div className="page page--gray page--login">
         <Header/>
@@ -64,7 +73,7 @@ class LoginComponent extends React.PureComponent {
             <section className="locations locations--login locations--current">
               <div className="locations__item">
                 <a className="locations__item-link" href="#">
-                  <span>{this.currentCity}</span>
+                  <span>{currentCity}</span>
                 </a>
               </div>
             </section>
@@ -77,11 +86,16 @@ class LoginComponent extends React.PureComponent {
 
 LoginComponent.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  currentCity: PropTypes.string.isRequired
+  currentCity: PropTypes.string.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  currentCity: state[NameSpace.PROCESS].city
+  currentCity: state[NameSpace.PROCESS].city,
+  authorizationStatus: state[NameSpace.USER].authorizationStatus
 });
 
 const mapDispatchToProps = (dispatch) => ({

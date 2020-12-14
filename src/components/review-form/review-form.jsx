@@ -17,6 +17,7 @@ export const ReviewFormComponent = ({addNewComments, offerId}) =>{
       rating,
       comment: commentRef.current.value,
     });
+    return evt.target.reset();
   };
 
   const handleRatingChange = (evt) => {

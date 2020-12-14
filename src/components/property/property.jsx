@@ -181,7 +181,7 @@ const PropertyComponent = (props) => {
           onOfferCardLeave={onOfferCardLeave}
         />
       )}
-      {offer && <Footer />}
+      {offer && <Footer/>}
     </div>
   );
 };

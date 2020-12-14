@@ -5,6 +5,7 @@ import {offerProps} from "../../property-types.js";
 import {connect} from "react-redux";
 import {NameSpace} from "../../store/root-reducer";
 import {fetchFavoriteOffers} from "../../store/api-actions";
+import {Link} from "react-router-dom";
 
 export const FavoritesScreenComponent = (props) =>{
   const {offers, getFavoriteOffers} = props;
@@ -12,6 +13,14 @@ export const FavoritesScreenComponent = (props) =>{
   useEffect(() => {
     getFavoriteOffers();
   }, [offers]);
+
+  if (offers.length === 0) {
+    return (
+      <div className="favorites__places">
+        <Link to={`/`}><p className="favorite__places-empty">You have not marked any offer, click here to to redirect to homepage</p></Link>
+      </div>
+    );
+  }
 
   return (
     <div className="favorites__places">
